@@ -1,5 +1,5 @@
 # remote-server-connection
-spring boot,  XML, HTTPClient, Signatere
+spring boot,  XML, HTTPClient, Signature
 
 to run project pull it to your pc
 
