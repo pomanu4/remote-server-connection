@@ -90,21 +90,17 @@ public class XmlSignatureUtill {
         Security.addProvider(new BouncyCastleProvider());
         ClassPathResource resource = new ClassPathResource("files/private.pem");
         final String privateKeyPassword = null;
-        try {
-            PrivateKey privateK = null;
-            PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), new PasswordFinder() {
-                @Override
-                public char[] getPassword() {
-                    if (privateKeyPassword != null) {
-                        return privateKeyPassword.toCharArray();
-                    } else {
-                        return new char[0];
-                    }
+        PasswordFinder finder = () -> {
+                if (privateKeyPassword != null) {
+                    return privateKeyPassword.toCharArray();
+                } else {
+                    return new char[0];
                 }
-            });
+            };
+        try(PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), finder);) {
+            PrivateKey privateK = null;
             KeyPair pair = (KeyPair) reader.readObject();
             privateK = pair.getPrivate();
-            
             return privateK;   
         } catch (IOException ex) {
             Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
