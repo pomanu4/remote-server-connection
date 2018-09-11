@@ -22,12 +22,12 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
-        Random random = new Random();
-        int id = 753;
+//        Random random = new Random();
+//        int id = 753;
         
         
             
-        DataTransferObject dto = new DataTransferObject(753, 380674060606L, 45887, random.nextInt(500)+1, 240);
+        DataTransferObject dto = new DataTransferObject(753, 380674060606L, 45887, 100, 240);
 
         sender.sendHttpRequest(dto, RequestType.VERIFY);
 	sender.sendHttpRequest(dto, RequestType.PAYMENT);
