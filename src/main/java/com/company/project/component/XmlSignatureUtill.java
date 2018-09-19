@@ -10,10 +10,8 @@ import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 import java.io.IOException;
@@ -52,7 +50,7 @@ public class XmlSignatureUtill {
     public String sign(String message) throws SignatureException {
         try {
             Signature sign = Signature.getInstance(SIGN_ALGORYTHM);
-            sign.initSign(getPrivateKey2());
+            sign.initSign(getPrivateKeyFromPEMfile());
             sign.update(message.getBytes(CHARSET));
             return java.util.Base64.getEncoder().encodeToString(sign.sign());
         } catch (Exception ex) {
@@ -72,8 +70,10 @@ public class XmlSignatureUtill {
         }
         return publicKey;
     }
-
-    public PrivateKey getPrivateKey() {
+    /*
+    used only vith decodet to DER format private.pem file
+    */
+    public PrivateKey getPrivateKeyfromDERfile() {
         PrivateKey privateK = null;
         try {
             byte[] byteKey = keySupplier.getPrivateKeyBytes();
@@ -86,7 +86,7 @@ public class XmlSignatureUtill {
         return privateK;
     }
 
-    public PrivateKey getPrivateKey2() {
+    public PrivateKey getPrivateKeyFromPEMfile() {
         Security.addProvider(new BouncyCastleProvider());
         ClassPathResource resource = new ClassPathResource("files/private.pem");
         final String privateKeyPassword = null;
