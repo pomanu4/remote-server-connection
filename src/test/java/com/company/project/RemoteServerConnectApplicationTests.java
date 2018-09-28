@@ -29,7 +29,7 @@ public class RemoteServerConnectApplicationTests {
 	
 	@Before
 	public void initDto() {
-		dto = new DataTransferObject(21, 555, 45887, 100);
+		dto = new DataTransferObject(21, 555, 45887, 100, 240);
 	}
 	
 	@Test

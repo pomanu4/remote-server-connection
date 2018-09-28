@@ -31,7 +31,7 @@ public class XmlSignatureUtill {
     private static final String CHARSET = "UTF-8";
     private static final String SIGN_ALGORYTHM = "SHA1withRSA";
     private static final String KEY_ALGORYTHM = "RSA";
-
+    
     @Autowired
     private KeyBytesSupplier keySupplier;
 
@@ -102,6 +102,28 @@ public class XmlSignatureUtill {
             KeyPair pair = (KeyPair) reader.readObject();
             privateK = pair.getPrivate();
             return privateK;   
+        } catch (IOException ex) {
+            Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public PublicKey getPublicKeyFromPrivate(){
+        Security.addProvider(new BouncyCastleProvider());
+        ClassPathResource resource = new ClassPathResource("files/privkey.pem");
+        final String privateKeyPassword = null;
+        PasswordFinder finder = () -> {
+                if (privateKeyPassword != null) {
+                    return privateKeyPassword.toCharArray();
+                } else {
+                    return new char[0];
+                }
+            };
+        try(PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), finder);) {
+            PublicKey publicKey = null;
+            KeyPair pair = (KeyPair) reader.readObject();
+            publicKey = pair.getPublic();
+            return publicKey;   
         } catch (IOException ex) {
             Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
             return null;

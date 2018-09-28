@@ -11,23 +11,31 @@ public class DataTransferObject {
 	
 	private int service;
 	
-	private int account;
+	private long account;
 	
 	private int checkNumber;
 	
 	private int summ;
 	
 	private String date;
+        
+        private int personId;
 
-	public DataTransferObject(int id, int account, int checkNumber, int summ) {
+	public DataTransferObject(int id, long account, int checkNumber, int summ, int personId) {
 		super();
 		this.id = id;
-		this.point = 327;
-		this.service = 4390;
+		this.point = 327; //test point
+//                this.point = 423; //owbet point
+                this.service = 4481;//viber
+//                this.service = 4468; // owbet
+//                this.service = 5572; //fakeErrorService
+//                this.service = 5573; //elPaySystem
+//                this.service = 4467;//familnyi
 		this.account = account;
 		this.checkNumber = checkNumber;
 		this.summ = summ;
 		this.date = initDateField();
+                this.personId = personId;
 	}
 
 	public int getId() {
@@ -38,11 +46,11 @@ public class DataTransferObject {
 		this.id = id;
 	}
 
-	public int getAccount() {
+	public long getAccount() {
 		return account;
 	}
 
-	public void setAccount(int account) {
+	public void setAccount(long account) {
 		this.account = account;
 	}
 
@@ -73,7 +81,16 @@ public class DataTransferObject {
 	public String getDate() {
 		return date;
 	}
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
 	
+        
 	public String initDateField() {
 		ZonedDateTime time = ZonedDateTime.now();
 		DateTimeFormatter fopmater = DateTimeFormatter.ofPattern("YYYY-MM-dd'T'HH:mm:ss Z");
@@ -86,6 +103,4 @@ public class DataTransferObject {
 				+ ", checkNumber=" + checkNumber + ", summ=" + summ + ", date=" + date + "]";
 	}
 	
-	
-
 }

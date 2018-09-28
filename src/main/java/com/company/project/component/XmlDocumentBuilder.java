@@ -19,103 +19,129 @@ import static java.lang.String.*;
 
 public class XmlDocumentBuilder {
 
-	private static  Document createVerfyXml(DataTransferObject dto) {
-		Document document = createEmptyDocument();
+    public static byte[] buildXmlDocument(RequestType type, DataTransferObject dto) {
 
-		Element request = createRequestElement(document, dto);
-		document.appendChild(request);
+        switch (type) {
+            case VERIFY:
+                return getBytesFromXmlDocument(createVerfyXml(dto));
+            case PAYMENT:
+                return getBytesFromXmlDocument(createPaymentXml(dto));
+            case STATUS:
+                return getBytesFromXmlDocument(createStatusXml(dto));
+            case CANCEL:
+                return getBytesFromXmlDocument(createCancelXml(dto));
+            default:
+                throw new IllegalArgumentException("invalid argument");
+        }
+    }
 
-		Element verify = document.createElement("verify");
-		verify.setAttribute("service", valueOf(dto.getService()));
-		request.appendChild(verify);
+    private static Document createVerfyXml(DataTransferObject dto) {
+        Document document = createEmptyDocument();
 
-		return document;
-	}
+        Element request = createRequestElement(document, dto);
+        document.appendChild(request);
 
-	private static  Document createPaymentXml(DataTransferObject dto) {
-		Document document = createEmptyDocument();
+        Element verify = document.createElement("verify");
+        verify.setAttribute("service", valueOf(dto.getService()));
+        verify.setAttribute("account", valueOf(dto.getAccount()));
 
-		Element request = createRequestElement(document, dto);
-		document.appendChild(request);
-		
-		Element payment = document.createElement("payment");
-		payment.setAttribute("id", valueOf(dto.getId()));
-		payment.setAttribute("sum", valueOf(dto.getSumm()));
-		payment.setAttribute("check", valueOf(dto.getCheckNumber()));
-		payment.setAttribute("service", valueOf(dto.getService()));
-		payment.setAttribute("account", valueOf(dto.getAccount()));
-		payment.setAttribute("date", dto.getDate().toString());
+        request.appendChild(verify);
 
-		request.appendChild(payment);
+        return document;
+    }
 
-		return document;
-	}
-	
-	private static Document createStatusXml(DataTransferObject dto) {
-		Document document = createEmptyDocument();
+    private static Document createPaymentXml(DataTransferObject dto) {
+        Document document = createEmptyDocument();
 
-		Element request = createRequestElement(document, dto);
-		document.appendChild(request);
+        Element request = createRequestElement(document, dto);
+        document.appendChild(request);
 
-		Element status = document.createElement("status");
-		status.setAttribute("id", valueOf(dto.getId()));
-		
-		request.appendChild(status);
+        Element payment = document.createElement("payment");
+        payment.setAttribute("id", valueOf(dto.getId()));
+        payment.setAttribute("sum", valueOf(dto.getSumm()));
+        payment.setAttribute("check", valueOf(dto.getCheckNumber()));
+        payment.setAttribute("service", valueOf(dto.getService()));
+        payment.setAttribute("account", valueOf(dto.getAccount()));
+        payment.setAttribute("date", dto.getDate().toString());
 
-		return document;
-	}
+        request.appendChild(payment);
 
-	private static byte[] getBytesFromXmlDocument(Document document) {
+        return document;
+    }
 
-		byte[] result = null;
+    private static Document createStatusXml(DataTransferObject dto) {
+        Document document = createEmptyDocument();
 
-		try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+        Element request = createRequestElement(document, dto);
+        document.appendChild(request);
 
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(document);
-			StreamResult stream = new StreamResult(out);
-			transformer.transform(source, stream);
+        Element status = document.createElement("status");
+        status.setAttribute("id", valueOf(dto.getId()));
 
-			result = out.toByteArray();
+        request.appendChild(status);
 
-		} catch (TransformerFactoryConfigurationError | IOException | TransformerException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+        return document;
+    }
 
-	private static Document createEmptyDocument() {
-		Document document = null;
-		try {
-			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = builderFactory.newDocumentBuilder();
-			document = builder.newDocument();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-		return document;
-	}
+    private static Document createCancelXml(DataTransferObject dto) {
+        Document document = createEmptyDocument();
 
-	private static Element createRequestElement(Document document, DataTransferObject dto) {
-		Element request = document.createElement("request");
-		request.setAttribute("point", valueOf(dto.getPoint()));
-		return request;
-	}
-	
-	public static byte[] buildXmlDocument(RequestType type, DataTransferObject dto) {
-		
-		switch (type) {
-		case VERIFY:
-			return getBytesFromXmlDocument(createVerfyXml(dto));
-		case PAYMENT:
-			return getBytesFromXmlDocument(createPaymentXml(dto));
-		case STATUS:
-			return getBytesFromXmlDocument(createStatusXml(dto));
-		default:
-			throw new IllegalArgumentException("invalid argument");
-		}
-		
-	}
+        Element request = createRequestElement(document, dto);
+        document.appendChild(request);
 
+        Element cancel = document.createElement("cancel");
+        cancel.setAttribute("id", valueOf(dto.getId()));
+        cancel.setAttribute("person", String.valueOf(dto.getPersonId()));
+
+        request.appendChild(cancel);
+
+        return document;
+    }
+
+    private static byte[] getBytesFromXmlDocument(Document document) {
+
+        byte[] result = null;
+
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(document);
+            StreamResult stream = new StreamResult(out);
+            transformer.transform(source, stream);
+
+            result = out.toByteArray();
+
+        } catch (TransformerFactoryConfigurationError | IOException | TransformerException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static Document createEmptyDocument() {
+        Document document = null;
+        try {
+            DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = builderFactory.newDocumentBuilder();
+            document = builder.newDocument();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        return document;
+    }
+
+    private static Element createRequestElement(Document document, DataTransferObject dto) {
+        Element request = document.createElement("request");
+        request.setAttribute("point", valueOf(dto.getPoint()));
+        return request;
+    }
+
+    private static byte[] testStringSuplie(String request) {
+        try {
+            return request.getBytes("UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
