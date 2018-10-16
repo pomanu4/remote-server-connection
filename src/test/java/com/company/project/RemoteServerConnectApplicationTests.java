@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.company.project.component.DataTransferObject;
 import com.company.project.component.HttpRequestSender;
 import com.company.project.component.RequestType;
+import java.io.IOException;
+import java.security.cert.CertificateException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= {RemoteServerConnectApplication.class})
@@ -37,7 +39,7 @@ public class RemoteServerConnectApplicationTests {
 	}
 	
 	@Test
-	public void testSendHttpRequest() throws SignatureException, UnsupportedEncodingException {
+	public void testSendHttpRequest() throws SignatureException, UnsupportedEncodingException, IOException, CertificateException {
 		
 		ResponseEntity<String> responce = sender.sendHttpRequest(dto, RequestType.VERIFY);
 		

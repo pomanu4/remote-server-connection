@@ -2,8 +2,22 @@ package com.company.project.component;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.security.KeyPair;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Security;
+import java.security.cert.CertificateException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.openssl.PEMReader;
+import org.bouncycastle.openssl.PasswordFinder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +27,13 @@ public class KeyBytesSupplier {
     private static final String FILE_PATH = "files/";
     private static final String PUBLIC = "public.pem";
     private static final String PRIVATE = "private.der";
-    private static final String PRIVATE_PEM = "privkey.pem";
+    private static final String PRIVATE_PEM = "private.pem";
     private static final String CHARSET = "UTF-8";
+    private static final String CERT_PATH = "files/cert/";
+    private static final String CERTIFICATE="point_429.p12";
+    private static final String CERTIFICATE_PASSWORD="password.txt";
+    private static final String CERTIFICATE_ALGORUTHM = "PKCS12";
+    
 
     public byte[] getPublicKeyBytes() throws UnsupportedEncodingException {
         ClassPathResource resource = new ClassPathResource(FILE_PATH + PUBLIC);
@@ -44,5 +63,65 @@ public class KeyBytesSupplier {
                 .replaceAll("-----END PUBLIC KEY-----", "")
                 .replaceAll("\\n", "");
         return result.getBytes(CHARSET);
+    }
+    
+    public PrivateKey getPrivateKeyFromPEMfile() {
+        Security.addProvider(new BouncyCastleProvider());
+        ClassPathResource resource = new ClassPathResource(FILE_PATH + PRIVATE_PEM);
+        final String privateKeyPassword = null;
+        PasswordFinder finder = () -> {
+                if (privateKeyPassword != null) {
+                    return privateKeyPassword.toCharArray();
+                } else {
+                    return new char[0];
+                }
+            };
+        try(PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), finder);) {
+            PrivateKey privateK = null;
+            KeyPair pair = (KeyPair) reader.readObject();
+            privateK = pair.getPrivate();
+            return privateK;   
+        } catch (IOException ex) {
+            Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public PublicKey getPublicKeyFromPrivate(){
+        Security.addProvider(new BouncyCastleProvider());
+        ClassPathResource resource = new ClassPathResource(FILE_PATH + PRIVATE_PEM);
+        final String privateKeyPassword = null;
+        PasswordFinder finder = () -> {
+                if (privateKeyPassword != null) {
+                    return privateKeyPassword.toCharArray();
+                } else {
+                    return new char[0];
+                }
+            };
+        try(PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), finder);) {
+            PublicKey publicKey = null;
+            KeyPair pair = (KeyPair) reader.readObject();
+            publicKey = pair.getPublic();
+            return publicKey;   
+        } catch (IOException ex) {
+            Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public KeyStore getKeyStore() throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
+        ClassPathResource certResource = new ClassPathResource(CERT_PATH + CERTIFICATE);
+        KeyStore keyStore = KeyStore.getInstance(CERTIFICATE_ALGORUTHM);
+
+        try (InputStream certIn = certResource.getInputStream()) {
+            keyStore.load(certIn, getPassword());
+        }
+        return keyStore;
+    }
+
+    public char[] getPassword() throws IOException {
+        ClassPathResource passResource = new ClassPathResource(CERT_PATH + CERTIFICATE_PASSWORD);
+        char[] password = IOUtils.toCharArray(passResource.getInputStream());
+        return password;
     }
 }
