@@ -41,7 +41,7 @@ public class RemoteServerConnectApplicationTests {
 	@Test
 	public void testSendHttpRequest() throws SignatureException, UnsupportedEncodingException, IOException, CertificateException {
 		
-		ResponseEntity<String> responce = sender.sendHttpRequest(dto, RequestType.VERIFY);
+		ResponseEntity<String> responce = sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
 		
 		Assertions.assertTrue(responce.getStatusCode() == HttpStatus.OK);
 		Assertions.assertTrue(responce.getHeaders().containsKey(HEADER_NAME));

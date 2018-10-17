@@ -27,7 +27,6 @@ public class DataTransferObject {
 //                this.point = 429;//cert test
 		this.point = 327; //test point
 //                this.point = 423; //owbet point
-//                this.service = 4481;//viber
 //                this.service = 4468; // owbet
 //                this.service = 5572; //fakeErrorService
                 this.service = 5573; //elPaySystem

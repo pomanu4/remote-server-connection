@@ -32,7 +32,7 @@ import org.springframework.web.client.RestTemplate;
 public class HttpRequestSender {
 
     @Autowired
-    private KeyBytesSupplier keySupplier;
+    private CertificateUtill certificateUtill;
 
     @Autowired
     private XmlSignatureUtill signatureUtill;
@@ -42,20 +42,13 @@ public class HttpRequestSender {
 
     private static RestTemplate DEFAULT_REST_TEMPLATE = new RestTemplate();
     private static final String BASE_URL = "https://test.lgaming.net/external/extended";
-//    private static final String BASE_URL = "https://test.lgaming.net/external/extended-cert";//url for certificate
+    private static final String BASE_URL_CERT = "https://test.lgaming.net/external/extended-cert";//url for certificate
     private static final String HEADER_NAME = "PayLogic-Signature";
     private static final String CHARSET = "UTF-8";
 
-    public ResponseEntity<String> sendHttpRequest(DataTransferObject dto, RequestType type){
-        
-//        RestTemplate restTemplate = null;
-        RestTemplate restTemplate = HttpRequestSender.DEFAULT_REST_TEMPLATE;
-//        try {
-//           restTemplate = getRestTempWithCertificate();
-//        } catch (KeyStoreException | IOException | KeyManagementException | NoSuchAlgorithmException | UnrecoverableKeyException | CertificateException ex) {
-//            Logger.getLogger(HttpRequestSender.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+    public ResponseEntity<String> sendHttpRequestWithSignature(DataTransferObject dto, RequestType type){
 
+        RestTemplate restTemplate = HttpRequestSender.DEFAULT_REST_TEMPLATE;
         byte[] documentBytes = XmlDocumentBuilder.buildXmlDocument(type, dto);
         String document;
         ResponseEntity<String> responce = null;
@@ -70,6 +63,31 @@ public class HttpRequestSender {
             e.printStackTrace();
         }
         return responce;
+    }
+    
+    public ResponseEntity<String> sendHttpRequestWithCertificate(DataTransferObject dto, RequestType type) {
+
+        RestTemplate restTemplate = null;
+        try {
+            restTemplate = certificateUtill.getRestTempWithCertificate();
+        } catch (KeyStoreException | IOException | KeyManagementException | NoSuchAlgorithmException | UnrecoverableKeyException | CertificateException ex) {
+            Logger.getLogger(HttpRequestSender.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        byte[] documentBytes = XmlDocumentBuilder.buildXmlDocument(type, dto);
+        String document = null;
+        try {
+            document = new String(documentBytes, CHARSET);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(HttpRequestSender.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        HttpEntity<String> request = new HttpEntity<>(document, new HttpHeaders());
+        ResponseEntity<String> responce = restTemplate.exchange(BASE_URL_CERT, HttpMethod.POST, request, String.class);
+
+        showResultInConsole(request, responce);
+
+        return responce;
+
     }
 
     private HttpHeaders createHttpHeader(DataTransferObject dto, byte[] document) throws SignatureException {
@@ -107,37 +125,5 @@ public class HttpRequestSender {
         boolean verify = signatureUtill.verify(testRequest, signature);
 
         System.out.println(verify);
-    }
-
-    private RestTemplate sslConectionWithIgnoreSertificate() throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-        TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
-
-        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
-
-        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
-
-        CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
-
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setHttpClient(httpClient);
-
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-
-        return restTemplate;
-    }
-
-    private RestTemplate getRestTempWithCertificate() throws NoSuchAlgorithmException, KeyStoreException, UnrecoverableKeyException, KeyManagementException, IOException, CertificateException {
-
-        SSLContext sslContext = SSLContextBuilder.create().loadKeyMaterial(keySupplier.getKeyStore(), keySupplier.getPassword())
-                .loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
-
-        HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
-
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setHttpClient(httpClient);
-
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-
-        return restTemplate;
     }
 }
