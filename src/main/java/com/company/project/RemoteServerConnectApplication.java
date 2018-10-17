@@ -23,16 +23,20 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
     @Override
     public void run(String... arg0) throws Exception {
         Random random = new Random();
-        int id = 1481;
+        int id = 1484;
         
         
         DataTransferObject dto = new DataTransferObject(id, 380731521533L, 45887, random.nextInt(401)+100, 240);
 
-        sender.sendHttpRequest(dto, RequestType.VERIFY);
-//	sender.sendHttpRequest(dto, RequestType.PAYMENT);
+        sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
+	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
 //	sender.sendHttpRequest(dto, RequestType.STATUS);
-        
-//        sender.sendHttpRequest(dto, RequestType.CANCEL);
+//      sender.sendHttpRequest(dto, RequestType.CANCEL);
+
+//        sender.sendHttpRequestWithCertificate(dto, RequestType.VERIFY);
+//        sender.sendHttpRequestWithCertificate(dto, RequestType.PAYMENT);
+//        sender.sendHttpRequestWithCertificate(dto, RequestType.STATUS);
+//        sender.sendHttpRequestWithCertificate(dto, RequestType.CANCEL);
        
             
         
