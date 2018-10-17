@@ -9,6 +9,8 @@ import java.security.SignatureException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.net.ssl.SSLContext;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -44,12 +46,13 @@ public class HttpRequestSender {
     private static final String HEADER_NAME = "PayLogic-Signature";
     private static final String CHARSET = "UTF-8";
 
-    public ResponseEntity<String> sendHttpRequest(DataTransferObject dto, RequestType type) throws IOException, CertificateException {
-
+    public ResponseEntity<String> sendHttpRequest(DataTransferObject dto, RequestType type){
+        
+//        RestTemplate restTemplate = null;
         RestTemplate restTemplate = HttpRequestSender.DEFAULT_REST_TEMPLATE;
 //        try {
-//            restTemplate = sslWithSertificate();
-//        } catch (KeyStoreException | IOException | KeyManagementException | NoSuchAlgorithmException | UnrecoverableKeyException ex) {
+//           restTemplate = getRestTempWithCertificate();
+//        } catch (KeyStoreException | IOException | KeyManagementException | NoSuchAlgorithmException | UnrecoverableKeyException | CertificateException ex) {
 //            Logger.getLogger(HttpRequestSender.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
@@ -79,13 +82,19 @@ public class HttpRequestSender {
         try {
             System.out.println("\n" + "Request document : \n");
             System.out.println(formatter.printDocument(request.getBody()));
-            System.out.println("Request signature : " + request.getHeaders().get(HEADER_NAME).get(0));
+            
+            if(request.getHeaders().get(HEADER_NAME) != null){  
+                System.out.println("Request signature : " + request.getHeaders().get(HEADER_NAME).get(0));
+            }
+            
             System.out.println("\n Responce document : \n");
             System.out.println(formatter.printDocument(responce.getBody()));
-            System.out.println("Responce signature : " + responce.getHeaders().get(HEADER_NAME).get(0));
-
-            System.out.println("Signature verify : "
+            
+            if(responce.getHeaders().get(HEADER_NAME) != null){
+                System.out.println("Responce signature : " + responce.getHeaders().get(HEADER_NAME).get(0));
+                System.out.println("Signature verify : "
                     + signatureUtill.verify(responce.getBody(), responce.getHeaders().get(HEADER_NAME).get(0)) + "\n");
+            }
         } catch (SignatureException e) {
             e.printStackTrace();
         }
