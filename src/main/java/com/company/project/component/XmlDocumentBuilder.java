@@ -44,7 +44,41 @@ public class XmlDocumentBuilder {
         Element verify = document.createElement("verify");
         verify.setAttribute("service", valueOf(dto.getService()));
         verify.setAttribute("account", valueOf(dto.getAccount()));
-
+        
+        
+        
+        
+        Element addOne = document.createElement("attribute");
+        addOne.setAttribute("name", "one");
+        addOne.setAttribute("value", "one");
+        
+        Element addTwo = document.createElement("attribute");
+        addTwo.setAttribute("name", "two");
+        addTwo.setAttribute("value", "two");
+        
+        Element addThree = document.createElement("attribute");
+        addThree.setAttribute("name", "three");
+        addThree.setAttribute("value", "three");
+        
+        Element addFour = document.createElement("attribute");
+        addFour.setAttribute("name", "four");
+        addFour.setAttribute("value", "four");
+        
+        Element addFive = document.createElement("attribute");
+        addFive.setAttribute("name", "five");
+        addFive.setAttribute("value", "five");
+        
+        Element addSix = document.createElement("attribute");
+        addSix.setAttribute("name", "six");
+        addSix.setAttribute("value", "six");
+        
+//        verify.appendChild(addOne);
+//        verify.appendChild(addTwo);
+//        verify.appendChild(addThree);
+//        verify.appendChild(addFour);
+//        verify.appendChild(addFive);
+//        verify.appendChild(addSix);
+        
         request.appendChild(verify);
 
         return document;
@@ -62,8 +96,41 @@ public class XmlDocumentBuilder {
         payment.setAttribute("check", valueOf(dto.getCheckNumber()));
         payment.setAttribute("service", valueOf(dto.getService()));
         payment.setAttribute("account", valueOf(dto.getAccount()));
-        payment.setAttribute("date", dto.getDate().toString());
-
+        payment.setAttribute("date", dto.getDate());
+        
+        
+        
+        Element addOne = document.createElement("attribute");
+        addOne.setAttribute("name", "TekPokSchet");
+        addOne.setAttribute("value", "555");
+        
+        Element addTwo = document.createElement("attribute");
+        addTwo.setAttribute("name", "TekPokSchet2");
+        addTwo.setAttribute("value", "222");
+        
+        Element addThree = document.createElement("attribute");
+        addThree.setAttribute("name", "TekPokSchet33");
+        addThree.setAttribute("value", "333");
+        
+        Element addFour = document.createElement("attribute");
+        addFour.setAttribute("name", "Counter_IdCounter1");
+        addFour.setAttribute("value", "onne");
+        
+        Element addFive = document.createElement("attribute");
+        addFive.setAttribute("name", "Counter_IdCounter2");
+        addFive.setAttribute("value", "1111");
+        
+        Element addSix = document.createElement("attribute");
+        addSix.setAttribute("name", "Counter_IdCounter3");
+        addSix.setAttribute("value", "5555");
+        
+        payment.appendChild(addOne);
+        payment.appendChild(addTwo);
+        payment.appendChild(addThree);
+        payment.appendChild(addFour);
+        payment.appendChild(addFive);
+        payment.appendChild(addSix);
+        
         request.appendChild(payment);
 
         return document;

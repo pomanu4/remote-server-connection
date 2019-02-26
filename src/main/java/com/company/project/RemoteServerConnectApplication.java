@@ -16,35 +16,52 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
     @Autowired
     HttpRequestSender sender;
 
-    public static void main(String[] args) {
+    public static void main(String ... args) {
         SpringApplication.run(RemoteServerConnectApplication.class, args);
     }
 
     @Override
-    public void run(String... arg0) throws Exception {
+    public void run(String ... arg0) throws Exception {
+        
         Random random = new Random();
-        int id = 1566;
+//        int[] services = new int[]{5592, 5595, 5597, 5598, 5599, 5600};
+         int cancelId = 195;
+         
+//         long account = 380674060606L;
+        long account =  8197897880L;
+        
+        int id = 2024;
         int sum = random.nextInt(401)+100;
+        DataTransferObject dto = new DataTransferObject(id, account, 1408, sum, 240);
         
-        
-        DataTransferObject dto = new DataTransferObject(id, 380674060606L, 14044570, sum, 240);
-
         sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
 	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
-//	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
+	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
 //      sender.sendHttpRequestWithSignature(dto, RequestType.CANCEL);
 
-//        sender.sendHttpRequestWithCertificate(dto, RequestType.VERIFY);
-//        sender.sendHttpRequestWithCertificate(dto, RequestType.PAYMENT);
-//        sender.sendHttpRequestWithCertificate(dto, RequestType.STATUS);
-//        sender.sendHttpRequestWithCertificate(dto, RequestType.CANCEL);
-       
-            
+        
+        /*
+        for (int i = 0; i < 100; i++) {
+            int loopId = id + i;
+            int loopSum = random.nextInt(401) + 100;
+            int index = random.nextInt(services.length);
+
+            dto.setId(loopId);
+            dto.setSumm(loopSum);
+            dto.setService(services[index]);
+//            dto.setService(5591);
+//            System.out.println(dto.toString()); 
+//
+            sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
+            sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
+            sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
+
+        }
+        */
         
   //380674060606L // elpaySys userId
         
 //    sender.checkSignature("qwerty");
 
     }
-
 }
