@@ -31,7 +31,7 @@ public class RemoteServerConnectApplicationTests {
 	
 	@Before
 	public void initDto() {
-		dto = new DataTransferObject(21, 555, 45887, 100, 240);
+		dto = new DataTransferObject(21, "555", 45887, 100, 240);
 	}
 	
 	@Test
@@ -47,5 +47,4 @@ public class RemoteServerConnectApplicationTests {
 		Assertions.assertTrue(responce.getHeaders().containsKey(HEADER_NAME));
 		Assertions.assertTrue(responce.getBody().getClass() == String.class);
 	}
-
 }

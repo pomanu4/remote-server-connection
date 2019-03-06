@@ -11,7 +11,7 @@ public class DataTransferObject {
 
     private int service;
 
-    private long account;
+    private String account;
 
     private int checkNumber;
 
@@ -21,7 +21,7 @@ public class DataTransferObject {
 
     private int personId;
 
-    public DataTransferObject(int id, long account, int checkNumber, int summ, int personId) {
+    public DataTransferObject(int id, String account, int checkNumber, int summ, int personId) {
         super();
         this.id = id;
 //                this.point = 429;//cert test
@@ -58,11 +58,11 @@ public class DataTransferObject {
         this.id = id;
     }
 
-    public long getAccount() {
+    public String getAccount() {
         return account;
     }
 
-    public void setAccount(long account) {
+    public void setAccount(String account) {
         this.account = account;
     }
 

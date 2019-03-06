@@ -9,12 +9,17 @@ import com.company.project.component.DataTransferObject;
 import com.company.project.component.HttpRequestSender;
 import com.company.project.component.RequestType;
 import java.util.Random;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 @SpringBootApplication
 public class RemoteServerConnectApplication implements CommandLineRunner {
 
     @Autowired
     HttpRequestSender sender;
+    
+    Logger logger = LogManager.getLogger(RemoteServerConnectApplication.class);
 
     public static void main(String ... args) {
         SpringApplication.run(RemoteServerConnectApplication.class, args);
@@ -27,16 +32,15 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
 //        int[] services = new int[]{5592, 5595, 5597, 5598, 5599, 5600};
          int cancelId = 195;
          
-//         long account = 380674060606L;
-        long account =  8197897880L;
+        String account =  "8197897880";
         
         int id = 2024;
         int sum = random.nextInt(401)+100;
         DataTransferObject dto = new DataTransferObject(id, account, 1408, sum, 240);
         
         sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
-	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
-	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
+//	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
+//	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
 //      sender.sendHttpRequestWithSignature(dto, RequestType.CANCEL);
 
         
@@ -62,6 +66,6 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
   //380674060606L // elpaySys userId
         
 //    sender.checkSignature("qwerty");
-
+    logger.info("==> dto " + dto);
     }
 }
