@@ -1,4 +1,8 @@
-2019-03-04 16:37:55.590  INFO 11428 --- [main] c.c.p.RemoteServerConnectApplication     : Starting RemoteServerConnectApplication on DESKTOP-24LK678 with PID 11428 (C:\Users\Leo-admin\Documents\remote\remoteSC\target\classes started by Leo-admin in C:\Users\Leo-admin\Documents\remote\remoteSC)
-2019-03-04 16:37:55.592  INFO 11428 --- [main] c.c.p.RemoteServerConnectApplication     : No active profile set, falling back to default profiles: default
-2019-03-04 16:37:56.136  INFO 11428 --- [main] c.c.p.RemoteServerConnectApplication     : Started RemoteServerConnectApplication in 0.833 seconds (JVM running for 1.113)
-2019-03-04 16:37:57.319  INFO 11428 --- [main] c.c.p.RemoteServerConnectApplication     : ==> dto DataTransferObject [id=2024, point=433, service=5591, account=8197897880, checkNumber=1408, summ=404, date=2019-03-04T16:37:56 +0200]
+2019-03-25 16:09:24.085  INFO 1860 --- [main] c.c.p.RemoteServerConnectApplication     : Starting RemoteServerConnectApplication on DESKTOP-24LK678 with PID 1860 (C:\Users\Leo-admin\Documents\remote\remoteSC\target\classes started by Leo-admin in C:\Users\Leo-admin\Documents\remote\remoteSC)
+2019-03-25 16:09:24.092  INFO 1860 --- [main] c.c.p.RemoteServerConnectApplication     : No active profile set, falling back to default profiles: default
+2019-03-25 16:09:24.868  INFO 1860 --- [main] c.c.p.RemoteServerConnectApplication     : Started RemoteServerConnectApplication in 1.182 seconds (JVM running for 1.526)
+2019-03-25 16:09:25.944  INFO 1860 --- [main] c.c.p.RemoteServerConnectApplication     : ==> dto DataTransferObject [id=2074, point=433, service=5600, account=37131739, checkNumber=250147896, summ=261, date=2019-03-25T16:09:24 +0200]
+2019-03-25 16:10:43.432  INFO 13356 --- [main] c.c.p.RemoteServerConnectApplication     : Starting RemoteServerConnectApplication on DESKTOP-24LK678 with PID 13356 (C:\Users\Leo-admin\Documents\remote\remoteSC\target\classes started by Leo-admin in C:\Users\Leo-admin\Documents\remote\remoteSC)
+2019-03-25 16:10:43.434  INFO 13356 --- [main] c.c.p.RemoteServerConnectApplication     : No active profile set, falling back to default profiles: default
+2019-03-25 16:10:44.050  INFO 13356 --- [main] c.c.p.RemoteServerConnectApplication     : Started RemoteServerConnectApplication in 0.9 seconds (JVM running for 1.189)
+2019-03-25 16:10:45.610  INFO 13356 --- [main] c.c.p.RemoteServerConnectApplication     : ==> dto DataTransferObject [id=2074, point=433, service=5600, account=37131739, checkNumber=14000000, summ=465, date=2019-03-25T16:10:44 +0200]

@@ -32,16 +32,17 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
 //        int[] services = new int[]{5592, 5595, 5597, 5598, 5599, 5600};
          int cancelId = 195;
          
-        String account =  "8197897880";
+        String account =  "37131739";
         
-        int id = 2024;
+        int id = 2074;
         int sum = random.nextInt(401)+100;
-        DataTransferObject dto = new DataTransferObject(id, account, 1408, sum, 240);
+        DataTransferObject dto = new DataTransferObject(id, account, 1400, sum, 240);
         
         sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
-//	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
+	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
 //	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
 //      sender.sendHttpRequestWithSignature(dto, RequestType.CANCEL);
+//        sender.sendHttpRequestWithSignature(dto, RequestType.ONLINE_ADVANCE);
 
         
         /*

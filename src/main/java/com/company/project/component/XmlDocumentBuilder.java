@@ -30,6 +30,8 @@ public class XmlDocumentBuilder {
                 return getBytesFromXmlDocument(createStatusXml(dto));
             case CANCEL:
                 return getBytesFromXmlDocument(createCancelXml(dto));
+            case ONLINE_ADVANCE:
+                return getBytesFromXmlDocument(createOnlineAdvace(dto, ""));
             default:
                 throw new IllegalArgumentException("invalid argument");
         }
@@ -49,8 +51,8 @@ public class XmlDocumentBuilder {
         
         
         Element addOne = document.createElement("attribute");
-        addOne.setAttribute("name", "one");
-        addOne.setAttribute("value", "one");
+        addOne.setAttribute("name", "region");
+        addOne.setAttribute("value", "H");
         
         Element addTwo = document.createElement("attribute");
         addTwo.setAttribute("name", "two");
@@ -72,7 +74,7 @@ public class XmlDocumentBuilder {
         addSix.setAttribute("name", "six");
         addSix.setAttribute("value", "six");
         
-//        verify.appendChild(addOne);
+        verify.appendChild(addOne);
 //        verify.appendChild(addTwo);
 //        verify.appendChild(addThree);
 //        verify.appendChild(addFour);
@@ -101,20 +103,20 @@ public class XmlDocumentBuilder {
         
         
         Element addOne = document.createElement("attribute");
-        addOne.setAttribute("name", "TekPokSchet");
-        addOne.setAttribute("value", "555");
+        addOne.setAttribute("name", "region");
+        addOne.setAttribute("value", "H");
         
         Element addTwo = document.createElement("attribute");
-        addTwo.setAttribute("name", "TekPokSchet2");
+        addTwo.setAttribute("name", "PredPokSchet");
         addTwo.setAttribute("value", "222");
         
         Element addThree = document.createElement("attribute");
-        addThree.setAttribute("name", "TekPokSchet33");
-        addThree.setAttribute("value", "333");
+        addThree.setAttribute("name", "PeriodOplPred");
+        addThree.setAttribute("value", "");
         
         Element addFour = document.createElement("attribute");
-        addFour.setAttribute("name", "Counter_IdCounter1");
-        addFour.setAttribute("value", "onne");
+        addFour.setAttribute("name", "PeriodOpl");
+        addFour.setAttribute("value", "");
         
         Element addFive = document.createElement("attribute");
         addFive.setAttribute("name", "Counter_IdCounter2");
@@ -128,8 +130,8 @@ public class XmlDocumentBuilder {
         payment.appendChild(addTwo);
         payment.appendChild(addThree);
         payment.appendChild(addFour);
-        payment.appendChild(addFive);
-        payment.appendChild(addSix);
+//        payment.appendChild(addFive);
+//        payment.appendChild(addSix);
         
         request.appendChild(payment);
 
@@ -162,6 +164,20 @@ public class XmlDocumentBuilder {
 
         request.appendChild(cancel);
 
+        return document;
+    }
+    
+    private static  Document createOnlineAdvace(DataTransferObject dto, String function){
+        Document document = createEmptyDocument();
+        Element request = createRequestElement(document, dto);
+        document.appendChild(request);
+        
+        Element advance = document.createElement("advanced");
+        advance.setAttribute("service", String.valueOf(dto.getService()));
+        advance.setAttribute("function", function);
+        
+        request.appendChild(advance);
+        
         return document;
     }
 
