@@ -26,6 +26,8 @@ public class DocumentFormatter {
 			final LSSerializer writer = impl.createLSSerializer();
 			writer.getDomConfig().setParameter("format-pretty-print", Boolean.TRUE);
 			writer.getDomConfig().setParameter("xml-declaration", keepDeclaration);
+                        
+                        
 
 			return writer.writeToString(document);
 		} catch (Exception ex) {

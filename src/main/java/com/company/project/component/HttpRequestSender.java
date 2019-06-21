@@ -2,6 +2,7 @@ package com.company.project.component;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.net.ssl.SSLContext;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -27,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriUtils;
 
 @Component
 public class HttpRequestSender {
@@ -125,5 +128,13 @@ public class HttpRequestSender {
         boolean verify = signatureUtill.verify(testRequest, signature);
 
         System.out.println(verify);
+    }
+    
+    public String sendGetRequest(){
+//        String url = UriUtils.encode("https://xn--80aa7cln.com/api/?method=domaccbalance&key=sfhsjdlkhASLQ124rDKJFwds902fsdfASDJkd&currency=VNRUB", "UTF-8");
+       
+
+        String ob = DEFAULT_REST_TEMPLATE.getForObject("https://xn--80aa7cln.com/api/?method=domaccbalance&key=sfhsjdlkhASLQ124rDKJFwds902fsdfASDJkd&currency=VNRUB", String.class);
+        return ob;
     }
 }

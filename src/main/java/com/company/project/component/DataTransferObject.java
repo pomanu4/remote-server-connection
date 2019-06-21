@@ -27,10 +27,7 @@ public class DataTransferObject {
 //                this.point = 429;//cert test
 
                 this.point = 433; //test point
-//                this.service = 4468; // owbet
-//                this.service = 5572; //fakeErrorService
-//        this.service = 5586; //elPaySystem
-
+                
 //        this.service = 5610; //bankEast
 //        this.service = 5591; //pinbankKyiv
 //        this.service = 5592; //pinbankKrop
@@ -38,11 +35,22 @@ public class DataTransferObject {
 //        this.service = 5597; //pinbankRivne
 //        this.service = 5598; //pinbankChernivci
 //        this.service = 5599; //pinbankZytomur
-        this.service = 5600; //pinbankHerson
-//        this.service = 5621; 
+//        this.service = 5600; //pinbankHerson
+//        this.service = 5635; ///test
+//        this.service = 5631; //wellsendTransfer
+//        this.service = 5636; //wellsendPayout
+//        this.service = 5625; // BetconstructAcquiring
+//        this.service = 5634;  //shahta api
+//        this.service = 5637;  //privateMoney
+//        this.service = 5640;  //concordV2
+//        this.service = 5613;  //ameroEcquring
+        this.service = 5630;  //tasIbox
+
+
+
+
+
         
-//                this.service = 4481;//viber
-//        this.service = 4500;     
         this.account = account;
         this.checkNumber = checkNumber;
         this.summ = summ;
