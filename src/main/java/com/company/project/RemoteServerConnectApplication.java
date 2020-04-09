@@ -30,36 +30,39 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
         
         Random random = new Random();
 //        int[] services = new int[]{5592, 5595, 5597, 5598, 5599, 5600};
-        String[] accounts = new String[]{"4149499340447448","5269610000007865","4134170000012932"};
+//        String[] accounts = new String[]{"4149499340447448","5269610000007865","4134170000012932"};
          int cancelId = 195;
          
-//        String account =  "4999999999990011";
-
-         String account =  "5269610000007865";
-//        String account =  "5555555555555540";
-         
-        int id = 2362;
+//         String account =  "3632952"; // terminals
+//        String account =  "42123242292";  ///// bitone
+        String account =  "41001614575714";
+//        String account =  "48733387397";
+//            String account =  "25700120202056919"; ///yman
+//            String account =  "4012001037141112";
+        
+        int id = 26519;
+        
         int sum = random.nextInt(401)+100;
       
-        
         DataTransferObject dto = new DataTransferObject(id, account, 1400, sum, 240);
         
 //        sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
-//	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
+	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
 //	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
 //      sender.sendHttpRequestWithSignature(dto, RequestType.CANCEL);
 //        sender.sendHttpRequestWithSignature(dto, RequestType.ONLINE_ADVANCE);
-        sender.sendHttpRequestWithSignature(dto, RequestType.BALANCE);
+//        sender.sendHttpRequestWithSignature(dto, RequestType.BALANCE);
+//        sender.sendHttpRequest(dto, "equaring", id); //// 230 merch
 
         
         /*
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 5; i++) {
             id = id + 1;
             int loopSum = random.nextInt(401) + 100;
 //            int index = random.nextInt(accounts.length);
 
             dto.setId(id);
-            dto.setSumm(loopSum);
+//            dto.setSumm(loopSum);
 //            dto.setAccount(accounts[index]);
 //            dto.setService(5591);
 //            System.out.println(dto.toString()); 
@@ -71,9 +74,9 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
         }
         */
   //380674060606L // elpaySys userId
-        
+//        System.out.println(id);
 //    sender.checkSignature("qwerty");
-    logger.info("==> dto " + dto);
+    logger.info("==> id " + id);
     
 //        String ob = sender.sendGetRequest();
 //        System.out.println(ob);

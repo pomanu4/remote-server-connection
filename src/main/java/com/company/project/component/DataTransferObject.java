@@ -24,10 +24,14 @@ public class DataTransferObject {
     public DataTransferObject(int id, String account, int checkNumber, int summ, int personId) {
         super();
         this.id = id;
-//                this.point = 429;//cert test
+//                this.point = 274;//cert test
 
-                this.point = 433; //test point
-                
+//        this.point = 433; //test point
+//        this.point = 424; //test point
+            this.point = 337; // lviv test point
+
+
+//            this.service = 4468;  ///test uah olways success   
 //        this.service = 5610; //bankEast
 //        this.service = 5591; //pinbankKyiv
 //        this.service = 5592; //pinbankKrop
@@ -40,15 +44,38 @@ public class DataTransferObject {
 //        this.service = 5631; //wellsendTransfer
 //        this.service = 5636; //wellsendPayout
 //        this.service = 5625; // BetconstructAcquiring
-//        this.service = 5634;  //shahta api
 //        this.service = 5637;  //privateMoney
 //        this.service = 5640;  //concordV2
-//        this.service = 5613;  //ameroEcquring
-        this.service = 5630;  //tasIbox
+//          this.service = 4458; //concordPrpv
+//        this.service = 5643; //fopPorech
+//            this.service = 5644; //b-pay
+//        this.service = 5645; ////  turbo
+//        this.service = 5646; ////  swiftGarant
+//        this.service = 5651; ////  swiftGarant-ps
+//        this.service = 5647; ////  ukrGazBank
+//        this.service = 5649;  ///parimatch v3
+//        this.service = 5612;  /// test paylogic2
+//         this.service = 4459;  /// test kyivstar
+//          this.service = 5593;
+//        this.service = 5650;  /// test doublePay
 
-
-
-
+//           this.service = 4437; global
+//             this.service = 5589; //familnyi
+//             this.service = 5609; //familnyi + bank
+//             this.service = 5652; //ding_test
+//             this.service = 5653; //// yanMon
+//              this.service = 4471; /// ibox  
+//              this.service = 5630; //// tassibox
+//              this.service = 5657; //xPayout
+//              this.service = 5658;  ///electroPay
+//                this.service = 4479;
+//             this.service = 5659;  ///terminals
+//             this.service = 5660;  ///biton
+//            this.service = 5661;  ///zkTerm
+//          this.service = 5662;  ///fcSystem
+//            this.service = 5663;  ///codashop
+//            this.service = 5664;  ///fimi
+            this.service = 4786;  ///lviv test service
 
         
         this.account = account;

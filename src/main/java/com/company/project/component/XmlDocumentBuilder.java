@@ -2,6 +2,7 @@ package com.company.project.component;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,7 +17,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import static java.lang.String.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.transform.OutputKeys;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.w3c.dom.Node;
 
 public class XmlDocumentBuilder {
 
@@ -32,7 +40,19 @@ public class XmlDocumentBuilder {
             case CANCEL:
                 return getBytesFromXmlDocument(createCancelXml(dto));
             case ONLINE_ADVANCE:
-                return getBytesFromXmlDocument(createOnlineAdvace(dto, ""));
+                return getBytesFromXmlDocument(createOnlineAdvace(dto, "agentInputs"));
+//                 String payh = "D:\\garbage\\familnyAdvanced.txt";
+//                 byte[] b;
+//        try {
+//            b = Files.readAllBytes(Paths.get(payh));
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//            return null;
+//        }
+//                 return b;
+//                
+                 
+               
             case BALANCE :
                 return getBytesFromXmlDocument(createBalanceXml(dto));
             default:
@@ -53,24 +73,24 @@ public class XmlDocumentBuilder {
         
         
         Element addOne = document.createElement("attribute");///
-        addOne.setAttribute("name", "currency");
-        addOne.setAttribute("value", "USD");
+        addOne.setAttribute("name", "leo-ps-terminalid");
+        addOne.setAttribute("value", "10001");
         
         Element addTwo = document.createElement("attribute");///
-        addTwo.setAttribute("name", "transactionType");
-        addTwo.setAttribute("value", "2");
+        addTwo.setAttribute("name", "sender_name");
+        addTwo.setAttribute("value", "john");
         
         Element addThree = document.createElement("attribute");
-        addThree.setAttribute("name", "sender.city.string");
-        addThree.setAttribute("value", "Batumi");
+        addThree.setAttribute("name", "phone");
+        addThree.setAttribute("value", "380681258794");
         
         Element addFour = document.createElement("attribute");///
-        addFour.setAttribute("name", "sender.lastName");
-        addFour.setAttribute("value", "PIT");
+        addFour.setAttribute("name", "email");
+        addFour.setAttribute("value", "test@test.com");
         
         Element addFive = document.createElement("attribute");///
-        addFive.setAttribute("name", "sender.doc.issueDate");
-        addFive.setAttribute("value", "01.02.2000");
+        addFive.setAttribute("name", "ReceiverName");
+        addFive.setAttribute("value", "brad");
         
         Element addSix = document.createElement("attribute");///
         addSix.setAttribute("name", "sender.phone");
@@ -117,12 +137,12 @@ public class XmlDocumentBuilder {
         add16.setAttribute("value", "GVY UMVD");
         
         Element add17 = document.createElement("attribute");////
-        add17.setAttribute("name", "receiver.firstName");
-        add17.setAttribute("value", "Oksana");
+        add17.setAttribute("name", "leo-ps-terminalid");
+        add17.setAttribute("value", "88");
         
         Element add18 = document.createElement("attribute");///
-        add18.setAttribute("name", "receiver.phone");
-        add18.setAttribute("value", "380676116396");
+        add18.setAttribute("name", "email");
+        add18.setAttribute("value", "380971234567");
         
         
         
@@ -145,7 +165,7 @@ public class XmlDocumentBuilder {
         //// for testing
         Element add22 = document.createElement("attribute");///
         add22.setAttribute("name", "T");
-        add22.setAttribute("value", "");
+        add22.setAttribute("value", "REPORT");
         
         Element add23 = document.createElement("attribute");///
         add23.setAttribute("name", "D");
@@ -175,7 +195,9 @@ public class XmlDocumentBuilder {
 //        verify.appendChild(add21);
 //        verify.appendChild(add22);
 //        verify.appendChild(add23);
-        
+
+
+
         request.appendChild(verify);
 
         return document;
@@ -198,28 +220,28 @@ public class XmlDocumentBuilder {
         
         
         Element addOne = document.createElement("attribute");///
-        addOne.setAttribute("name", "currency");
-        addOne.setAttribute("value", "USD");
+        addOne.setAttribute("name", "sender_name");
+        addOne.setAttribute("value", "John Doe");
         
         Element addTwo = document.createElement("attribute");///
-        addTwo.setAttribute("name", "transactionType");
-        addTwo.setAttribute("value", "2");
+        addTwo.setAttribute("name", "email");
+        addTwo.setAttribute("value", "test@test.com");
         
         Element addThree = document.createElement("attribute");
-        addThree.setAttribute("name", "sender.city.string");
-        addThree.setAttribute("value", "Batumi");
+        addThree.setAttribute("name", "phone");
+        addThree.setAttribute("value", "380673334488");
         
         Element addFour = document.createElement("attribute");///
-        addFour.setAttribute("name", "sender.lastName");
-        addFour.setAttribute("value", "PITT");
+        addFour.setAttribute("name", "proxy_txn_id");
+        addFour.setAttribute("value", "777");
         
         Element addFive = document.createElement("attribute");///
-        addFive.setAttribute("name", "sender.doc.issueDate");
-        addFive.setAttribute("value", "01.02.2000");
+        addFive.setAttribute("name", "banKCode");
+        addFive.setAttribute("value", "505");
         
         Element addSix = document.createElement("attribute");///
-        addSix.setAttribute("name", "sender.phone");
-        addSix.setAttribute("value", "0114448844");
+        addSix.setAttribute("name", "pay_comm");
+        addSix.setAttribute("value", "8");
         
         Element addSeven = document.createElement("attribute");/////
         addSeven.setAttribute("name", "sender.birthDate");
@@ -266,19 +288,19 @@ public class XmlDocumentBuilder {
         add17.setAttribute("value", "Oksana");
         
         Element add18 = document.createElement("attribute");///
-        add18.setAttribute("name", "receiver.phone");
-        add18.setAttribute("value", "380676116396");
+        add18.setAttribute("name", "leo-ps-terminalid");
+        add18.setAttribute("value", "88");
         
         Element add19 = document.createElement("attribute");///
         add19.setAttribute("name", "reference");
         add19.setAttribute("value", "");
         
         
-//        payment.appendChild(addOne);
+        payment.appendChild(addOne);
 //        payment.appendChild(addTwo);
 //        payment.appendChild(addThree);
 //        payment.appendChild(addFour);
-//        payment.appendChild(addFive);
+        payment.appendChild(addFive);
 //        payment.appendChild(addSix);
 //        payment.appendChild(addSeven);
 //        payment.appendChild(addEight);
@@ -349,6 +371,58 @@ public class XmlDocumentBuilder {
         Element advance = document.createElement("advanced");
         advance.setAttribute("service", String.valueOf(dto.getService()));
         advance.setAttribute("function", function);
+        
+        Element att1 = document.createElement("attribute");
+        att1.setAttribute("name", "latitude");
+        att1.setAttribute("value", "42.2616484914");
+        
+        Element att2 = document.createElement("attribute");
+        att2.setAttribute("name", "longitude");
+        att2.setAttribute("value", "22.9447395801");
+        
+        Element att3 = document.createElement("attribute");
+        att3.setAttribute("name", "adress");
+        att3.setAttribute("value", "Київ вул. Хрещатик");
+        
+        Element att4 = document.createElement("attribute");
+        att4.setAttribute("name", "leo-ps-terminalid");
+        att4.setAttribute("value", "68875423");
+        
+        Element att5 = document.createElement("attribute");
+        att5.setAttribute("name", "TPPstreetType");
+        att5.setAttribute("value", "пр.");
+        
+        Element att6 = document.createElement("attribute");
+        att6.setAttribute("name", "TPPstreetName");
+        att6.setAttribute("value", "Лісовий");
+        
+        Element att7 = document.createElement("attribute");
+        att7.setAttribute("name", "TPPhouseNumber");
+        att7.setAttribute("value", "22");
+        
+        Element att8 = document.createElement("attribute");
+        att8.setAttribute("name", "TPPowner");
+        att8.setAttribute("value", "ТОВ Лео");
+        
+        Element att9 = document.createElement("attribute");
+        att9.setAttribute("name", "TPPprocessing");
+        att9.setAttribute("value", "ТОВ Мїйвь Інк");
+        
+        Element att10 = document.createElement("attribute");
+        att10.setAttribute("name", "TPPtype");
+        att10.setAttribute("value", "4");
+        
+        
+        advance.appendChild(att1);
+        advance.appendChild(att2);
+        advance.appendChild(att3);
+        advance.appendChild(att4);
+        advance.appendChild(att5);
+        advance.appendChild(att6);
+        advance.appendChild(att7);
+        advance.appendChild(att8);
+        advance.appendChild(att9);
+        advance.appendChild(att10);
         
         request.appendChild(advance);
         

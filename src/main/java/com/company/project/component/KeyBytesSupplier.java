@@ -25,15 +25,26 @@ import org.springframework.stereotype.Component;
 public class KeyBytesSupplier {
 
     private static final String FILE_PATH = "files/";
-    private static final String PUBLIC = "public.pem";
-    private static final String PRIVATE = "private.der";
-    private static final String PRIVATE_PEM = "private.pem";
+//    private static final String PUBLIC = "453-public.pem";
+    private static final String PRIVATE = "453-private.der";/// not used
+//    private static final String PRIVATE_PEM = "453-private.pem";
     private static final String CHARSET = "UTF-8";
     private static final String CERT_PATH = "files/cert/";
     private static final String CERTIFICATE="point_429.p12";
     private static final String CERTIFICATE_PASSWORD="password.txt";
     private static final String CERTIFICATE_ALGORUTHM = "PKCS12";
     
+//    private static final String PUBLIC = "public.pem";
+//    private static final String PRIVATE_PEM = "private.pem";
+//    private static final String PRIVATE_PEM = "private_424.pem";
+    
+    private static final String PUBLIC = "337_public.pem";
+    private static final String PRIVATE_PEM = "337_private.pem";
+    
+    
+    /// prod point keys
+//    private static final String PUBLIC = "public-274.pem";
+//    private static final String PRIVATE_PEM = "private-274.pem";
 
     public byte[] getPublicKeyBytes() throws UnsupportedEncodingException {
         ClassPathResource resource = new ClassPathResource(FILE_PATH + PUBLIC);

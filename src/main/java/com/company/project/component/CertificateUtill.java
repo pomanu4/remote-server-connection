@@ -9,6 +9,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import javax.net.ssl.SSLContext;
 import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -41,12 +42,12 @@ public class CertificateUtill {
         return restTemplate;
     }
     
-    public RestTemplate sslConectionWithIgnoreSertificate() throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+    public RestTemplate sslConectionWithIgnoreSertificate() throws  KeyStoreException, KeyManagementException, NoSuchAlgorithmException {
         TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
 
         SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
 
-        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
+        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
 
         CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
 

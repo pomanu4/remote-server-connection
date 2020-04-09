@@ -5,14 +5,18 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.net.ssl.SSLContext;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -30,6 +34,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriUtils;
+import org.json.JSONObject;
 
 @Component
 public class HttpRequestSender {
@@ -44,25 +49,33 @@ public class HttpRequestSender {
     private DocumentFormatter formatter;
 
     private static RestTemplate DEFAULT_REST_TEMPLATE = new RestTemplate();
-    private static final String BASE_URL = "https://test.lgaming.net/external/extended";
+//    private static String BASE_URL = "https://test.lgaming.net/external/extended";
+//    private static String BASE_URL = "https://api.lgaming.net/external/extended";
+    private static String BASE_URL = "https://95.211.12.99:61443/server/";
+    
+    
     private static final String BASE_URL_CERT = "https://test.lgaming.net/external/extended-cert";//url for certificate
     private static final String HEADER_NAME = "PayLogic-Signature";
     private static final String CHARSET = "UTF-8";
 
     public ResponseEntity<String> sendHttpRequestWithSignature(DataTransferObject dto, RequestType type){
 
-        RestTemplate restTemplate = HttpRequestSender.DEFAULT_REST_TEMPLATE;
+//        RestTemplate restTemplate = HttpRequestSender.DEFAULT_REST_TEMPLATE;
+       
         byte[] documentBytes = XmlDocumentBuilder.buildXmlDocument(type, dto);
         String document;
         ResponseEntity<String> responce = null;
         try {
-            document = new String(documentBytes, CHARSET);
+             RestTemplate restTemplate = certificateUtill.sslConectionWithIgnoreSertificate();
+//            document = new String(documentBytes, CHARSET);
+            document = new String(documentBytes, "utf-8");
+            System.out.println(document);
             HttpEntity<String> request = new HttpEntity<>(document, createHttpHeader(dto, documentBytes));
             responce = restTemplate.exchange(BASE_URL, HttpMethod.POST, request, String.class);
 
             showResultInConsole(request, responce);
 
-        } catch (UnsupportedEncodingException | SignatureException e) {
+        } catch (UnsupportedEncodingException | SignatureException | KeyStoreException | KeyManagementException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return responce;
@@ -92,10 +105,56 @@ public class HttpRequestSender {
         return responce;
 
     }
+    
+    public ResponseEntity<String> sendHttpRequest(DataTransferObject dto, String type, int id){
 
-    private HttpHeaders createHttpHeader(DataTransferObject dto, byte[] document) throws SignatureException {
+        RestTemplate restTemplate = HttpRequestSender.DEFAULT_REST_TEMPLATE;
+        String document = "";
+        String key = "a88220c3241b850901ae080504571d5d01bc60e6";
+        if("meny".equals(type)){
+            document = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request point=\"433\"><menu/></request>";
+        } else if("equaring".equals(type)){
+//            String mess = "{\"account\":\"test@test.com\",\"amount\":10.55,\"currency\":\"UAH\",\"projectid\":95369,\"email\":\"test@test.com\",\"methodid\":\"test\",\"requestid\":26482628,\"requestmethod\":\"create_order\",\"client_url\":\"https://hotspot.casino.com\",\"attributes_number\":\"0687927871\",\"merchantid\":228}";
+            String mess = "{\"account\":\"test@test.com\",\"amount\":10.55,\"client_url\":\"https://google.com\",\"currency\":\"UAH\",\"email\":\"test@test.com\",\"merchantid\":230,\"methodid\":\"test\",\"projectid\": 95384,\"requestid\":65535,\"requestmethod\":\"create_order\"}";
+            
+            JSONObject json = new JSONObject(mess);
+            json.put("requestid", id);
+            Object[] toArray = json.keySet().toArray();
+            Arrays.sort(toArray);
+            StringBuilder builder = new StringBuilder();
+            for (Object object : toArray) {
+               builder.append(json.get(object.toString()));
+            }
+            builder.append(key);
+            String generateHash = generateHash(builder.toString(), "MD5");
+            json.put("sign", generateHash);
+            
+            String toString = json.toString();
+            System.out.println(toString);
+            document = toString;
+            BASE_URL = "https://payment.leogaming.net/gateway/v2/";
+        }
+        
+        ResponseEntity<String> responce = null;
+        try {
+           
+            HttpEntity<String> request = new HttpEntity<>(document, createHttpHeader(dto, document.getBytes(CHARSET)));
+            responce = restTemplate.exchange(BASE_URL, HttpMethod.POST, request, String.class);
+
+//            showResultInConsole(request, responce);
+            System.out.println(responce.getBody());
+        } catch (SignatureException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        }
+        return responce;
+    }
+
+    private HttpHeaders createHttpHeader(DataTransferObject dto, byte[] document) throws SignatureException, UnsupportedEncodingException {
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HEADER_NAME, signatureUtill.sign(new String(document)));
+        headers.add(HEADER_NAME, signatureUtill.sign(document));
+        headers.add("Content-Type", "text/xml; charset=" + CHARSET);
         return headers;
     }
 
@@ -109,7 +168,8 @@ public class HttpRequestSender {
             }
             
             System.out.println("\n Responce document : \n");
-            System.out.println(formatter.printDocument(responce.getBody()));
+            System.out.println(responce.getBody());
+//            System.out.println(formatter.printDocument(responce.getBody()));
             
             if(responce.getHeaders().get(HEADER_NAME) != null){
                 System.out.println("Responce signature : " + responce.getHeaders().get(HEADER_NAME).get(0));
@@ -122,8 +182,8 @@ public class HttpRequestSender {
     }
 
     public void checkSignature(String request) throws SignatureException {
-        String testRequest = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><response><result id=\"14043187\" code=\"15\"/></response>";
-        String signature = "OEiKo8I+2GOkmh+l5l8qDsXKf1+FctHp8j/0hAgwkafEOMRokRVcXlxcAvr+pQTSBDtalcoNpdZ7oArKoP+mDWX419CXegkWVfQZv8F0n11EQ2SIVAzLIJqFCbye/TcOTWpazuhrvMd3XjQFvLIsWAHu+jXBvNRqg5puEQs6Aqc=";
+        String testRequest = "<?xml version=\"1.0\"?><request point=\"433\"><advanced function=\"TPPregistr\" service=\"444\"><attribute value=\"888\" name=\"TPPid\"/><attribute value=\"LeoTName in flower shop\" name=\"TPPname\"/><attribute value=\"Львівська\" name=\"TPPregion\"/><attribute value=\"с. Сокільники, Сокальський р-н.\" name=\"TPPcity\"/><attribute value=\"пров.\" name=\"TPPstreetType\"/><attribute value=\"Стрийська\" name=\"TPPstreetName\"/><attribute value=\"22\" name=\"TPPhouseNumber\"/><attribute value=\"ТОВ Леогеймінг\" name=\"TPPowner\"/><attribute value=\"ТОВ Процессинг Інк\" name=\"TPPprocessing\"/></advanced></request>";
+        String signature = "X1NEzpqqwIYm5DigWoDp7kgeugLVEDwXPXnivNRzR4EtdT5J2+g9EdMF2QSfe4nDDEDEUoN3wnLHFzXutfQfvWSKn/PXs9vAWyQFxo0up9Xlk6i++P+eySjAQHOpcdfQgQuj+vDXLfsZZImPDB9YiJiUUpiCn5mhaEKFH8h0u2g=";
 //            String sign = signatureUtill.sign(testRequest);
         boolean verify = signatureUtill.verify(testRequest, signature);
 
@@ -136,5 +196,15 @@ public class HttpRequestSender {
 
         String ob = DEFAULT_REST_TEMPLATE.getForObject("https://xn--80aa7cln.com/api/?method=domaccbalance&key=sfhsjdlkhASLQ124rDKJFwds902fsdfASDJkd&currency=VNRUB", String.class);
         return ob;
+    }
+    
+     private static String generateHash(String message, String alg){
+        try{
+            MessageDigest md = MessageDigest.getInstance(alg);
+            md.update(message.getBytes(CHARSET));
+            return new String(Hex.encodeHex(md.digest()));
+        }catch(Exception e){
+            return null;
+        }
     }
 }

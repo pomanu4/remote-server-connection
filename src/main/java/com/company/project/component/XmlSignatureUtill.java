@@ -37,11 +37,12 @@ public class XmlSignatureUtill {
         }
     }
 
-    public String sign(String message) throws SignatureException {
+    public String sign(byte[] message) throws SignatureException {
         try {
             Signature sign = Signature.getInstance(SIGN_ALGORYTHM);
             sign.initSign(keySupplier.getPrivateKeyFromPEMfile());
-            sign.update(message.getBytes(CHARSET));
+            sign.update(message);
+// sign.update(message.getBytes("win));
             return java.util.Base64.getEncoder().encodeToString(sign.sign());
         } catch (Exception ex) {
             throw new SignatureException(ex);
