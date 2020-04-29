@@ -49,10 +49,10 @@ public class HttpRequestSender {
     private DocumentFormatter formatter;
 
     private static RestTemplate DEFAULT_REST_TEMPLATE = new RestTemplate();
-//    private static String BASE_URL = "https://test.lgaming.net/external/extended";
+    private static String BASE_URL = "https://test.lgaming.net/external/extended";
 //    private static String BASE_URL = "https://api.lgaming.net/external/extended";
-    private static String BASE_URL = "https://95.211.12.99:61443/server/";
-    
+//    private static String BASE_URL = "https://95.211.12.99:61443/server/";
+//    private static String BASE_URL = "https://api5.lgaming.net/external/extended";
     
     private static final String BASE_URL_CERT = "https://test.lgaming.net/external/extended-cert";//url for certificate
     private static final String HEADER_NAME = "PayLogic-Signature";
@@ -115,7 +115,11 @@ public class HttpRequestSender {
             document = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request point=\"433\"><menu/></request>";
         } else if("equaring".equals(type)){
 //            String mess = "{\"account\":\"test@test.com\",\"amount\":10.55,\"currency\":\"UAH\",\"projectid\":95369,\"email\":\"test@test.com\",\"methodid\":\"test\",\"requestid\":26482628,\"requestmethod\":\"create_order\",\"client_url\":\"https://hotspot.casino.com\",\"attributes_number\":\"0687927871\",\"merchantid\":228}";
-            String mess = "{\"account\":\"test@test.com\",\"amount\":10.55,\"client_url\":\"https://google.com\",\"currency\":\"UAH\",\"email\":\"test@test.com\",\"merchantid\":230,\"methodid\":\"test\",\"projectid\": 95384,\"requestid\":65535,\"requestmethod\":\"create_order\"}";
+//            String mess = "{\"account\":\"test@test.com\",\"amount\":10.55,\"client_url\":\"https://google.com\",\"currency\":\"UAH\",\"email\":\"test@test.com\",\"merchantid\":230,\"methodid\":\"test\",\"projectid\": 95384,\"requestid\":65535,\"requestmethod\":\"create_order\"}";
+  /// favorit protocol test          
+String mess = "{\"account\":\"test@test.com\",\"amount\":10.55,\"currency\":\"UAH\",\"projectid\":95551,\"email\":\"test@test.com\",\"methodid\":\"testks_new\",\"requestid\":700,\"requestmethod\":\"create_order\",\"client_url\":\"https://hotspot.casino.com\",\"attributes_number\":\"0687927871\",\"merchantid\":230}";
+            
+            
             
             JSONObject json = new JSONObject(mess);
             json.put("requestid", id);

@@ -34,12 +34,15 @@ public class KeyBytesSupplier {
     private static final String CERTIFICATE_PASSWORD="password.txt";
     private static final String CERTIFICATE_ALGORUTHM = "PKCS12";
     
-//    private static final String PUBLIC = "public.pem";
-//    private static final String PRIVATE_PEM = "private.pem";
+    private static final String PUBLIC = "public.pem";
+    private static final String PRIVATE_PEM = "private.pem";
 //    private static final String PRIVATE_PEM = "private_424.pem";
     
-    private static final String PUBLIC = "337_public.pem";
-    private static final String PRIVATE_PEM = "337_private.pem";
+//    private static final String PUBLIC = "337_public.pem";
+//    private static final String PRIVATE_PEM = "337_private.pem";
+    
+//        private static final String PUBLIC = "1003_public.pem";
+//    private static final String PRIVATE_PEM = "1003_private.pem";
     
     
     /// prod point keys

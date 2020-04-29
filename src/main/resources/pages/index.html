@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+
+	  xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" />
+    <head>
+        <title>best tittle ewah</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/style.css"/>
+    </head>
+    <body>
+        <p>try to calc comission </p>
+        <form th:action="@{comision}" method="POST" >
+            <input th:name="summ" type="number" />
+            <input th:name="currency"  type="text" />
+            <input type="submit" value="calk fee" />
+        </form>
+        
+    </body>
+</html>

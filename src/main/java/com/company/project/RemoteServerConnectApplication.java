@@ -35,19 +35,20 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
          
 //         String account =  "3632952"; // terminals
 //        String account =  "42123242292";  ///// bitone
-        String account =  "41001614575714";
+//        String account =  "41001614575714";
 //        String account =  "48733387397";
 //            String account =  "25700120202056919"; ///yman
 //            String account =  "4012001037141112";
+            String account =  "5182820100177963";  //// 5351 1803 0112 6706   5412 7103 0003 5305
         
-        int id = 26519;
+        int id = 26561;
         
         int sum = random.nextInt(401)+100;
       
         DataTransferObject dto = new DataTransferObject(id, account, 1400, sum, 240);
         
-//        sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
-	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
+        sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
+//	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
 //	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
 //      sender.sendHttpRequestWithSignature(dto, RequestType.CANCEL);
 //        sender.sendHttpRequestWithSignature(dto, RequestType.ONLINE_ADVANCE);

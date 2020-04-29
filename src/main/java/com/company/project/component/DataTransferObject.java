@@ -26,12 +26,12 @@ public class DataTransferObject {
         this.id = id;
 //                this.point = 274;//cert test
 
-//        this.point = 433; //test point
+        this.point = 433; //test point
 //        this.point = 424; //test point
-            this.point = 337; // lviv test point
+//            this.point = 337; // lviv test point
+//        this.point = 1003; //test point java 8
 
-
-//            this.service = 4468;  ///test uah olways success   
+            this.service = 4468;  ///test uah olways success   
 //        this.service = 5610; //bankEast
 //        this.service = 5591; //pinbankKyiv
 //        this.service = 5592; //pinbankKrop
@@ -75,7 +75,7 @@ public class DataTransferObject {
 //          this.service = 5662;  ///fcSystem
 //            this.service = 5663;  ///codashop
 //            this.service = 5664;  ///fimi
-            this.service = 4786;  ///lviv test service
+//            this.service = 4786;  ///lviv test service
 
         
         this.account = account;
