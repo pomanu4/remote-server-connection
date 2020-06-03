@@ -73,20 +73,20 @@ public class XmlDocumentBuilder {
         
         
         Element addOne = document.createElement("attribute");///
-        addOne.setAttribute("name", "leo-ps-terminalid");
-        addOne.setAttribute("value", "10001");
+        addOne.setAttribute("name", "documentType");
+        addOne.setAttribute("value", "passport");
         
         Element addTwo = document.createElement("attribute");///
-        addTwo.setAttribute("name", "sender_name");
-        addTwo.setAttribute("value", "john");
+        addTwo.setAttribute("name", "documentSeries");
+        addTwo.setAttribute("value", "SS");
         
         Element addThree = document.createElement("attribute");
-        addThree.setAttribute("name", "phone");
-        addThree.setAttribute("value", "380681258794");
+        addThree.setAttribute("name", "documentNumber");
+        addThree.setAttribute("value", "554488");
         
         Element addFour = document.createElement("attribute");///
-        addFour.setAttribute("name", "email");
-        addFour.setAttribute("value", "test@test.com");
+        addFour.setAttribute("name", "name");
+        addFour.setAttribute("value", "");
         
         Element addFive = document.createElement("attribute");///
         addFive.setAttribute("name", "ReceiverName");
@@ -172,9 +172,9 @@ public class XmlDocumentBuilder {
         add23.setAttribute("value", "31.05.2019");
         
         
-//        verify.appendChild(addOne);
-//        verify.appendChild(addTwo);
-//        verify.appendChild(addThree);
+        verify.appendChild(addOne);
+        verify.appendChild(addTwo);
+        verify.appendChild(addThree);
 //        verify.appendChild(addFour);
 //        verify.appendChild(addFive);
 //        verify.appendChild(addSix);
@@ -220,8 +220,8 @@ public class XmlDocumentBuilder {
         
         
         Element addOne = document.createElement("attribute");///
-        addOne.setAttribute("name", "sender_name");
-        addOne.setAttribute("value", "John Doe");
+        addOne.setAttribute("name", "wallet_useraccount");
+        addOne.setAttribute("value", "431414******5391");
         
         Element addTwo = document.createElement("attribute");///
         addTwo.setAttribute("name", "email");
@@ -300,7 +300,7 @@ public class XmlDocumentBuilder {
 //        payment.appendChild(addTwo);
 //        payment.appendChild(addThree);
 //        payment.appendChild(addFour);
-        payment.appendChild(addFive);
+//        payment.appendChild(addFive);
 //        payment.appendChild(addSix);
 //        payment.appendChild(addSeven);
 //        payment.appendChild(addEight);

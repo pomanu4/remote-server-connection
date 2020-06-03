@@ -25,14 +25,15 @@ public class DataTransferObject {
         super();
         this.id = id;
 //                this.point = 274;//cert test
-
-        this.point = 433; //test point
-//        this.point = 424; //test point
+//        this.point = 331; //gpc pint
+//        this.point = 433; //split test point
+        this.point = 458; //test point
 //            this.point = 337; // lviv test point
 //        this.point = 1003; //test point java 8
 
-            this.service = 4468;  ///test uah olways success   
-//        this.service = 5610; //bankEast
+//            this.service = 4468;  ///test uah olways success  
+//            this.service = 4409;  /// gpc test service  
+//        this.service = 5610; //bankSouth
 //        this.service = 5591; //pinbankKyiv
 //        this.service = 5592; //pinbankKrop
 //        this.service = 5595; //pinbankOdessa
@@ -53,7 +54,7 @@ public class DataTransferObject {
 //        this.service = 5646; ////  swiftGarant
 //        this.service = 5651; ////  swiftGarant-ps
 //        this.service = 5647; ////  ukrGazBank
-//        this.service = 5649;  ///parimatch v3
+//        this.service = 5692;  ///parimatch v3
 //        this.service = 5612;  /// test paylogic2
 //         this.service = 4459;  /// test kyivstar
 //          this.service = 5593;
@@ -63,7 +64,7 @@ public class DataTransferObject {
 //             this.service = 5589; //familnyi
 //             this.service = 5609; //familnyi + bank
 //             this.service = 5652; //ding_test
-//             this.service = 5653; //// yanMon
+//             this.service = 5653; //// yanMon + split
 //              this.service = 4471; /// ibox  
 //              this.service = 5630; //// tassibox
 //              this.service = 5657; //xPayout
@@ -76,7 +77,9 @@ public class DataTransferObject {
 //            this.service = 5663;  ///codashop
 //            this.service = 5664;  ///fimi
 //            this.service = 4786;  ///lviv test service
-
+//            this.service = 5690;  ///lviv energy
+                this.service = 5691;  ///monobank  ///hermes
+              
         
         this.account = account;
         this.checkNumber = checkNumber;
