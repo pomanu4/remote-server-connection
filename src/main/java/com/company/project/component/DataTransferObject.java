@@ -27,9 +27,10 @@ public class DataTransferObject {
 //                this.point = 274;//cert test
 //        this.point = 331; //gpc pint
 //        this.point = 433; //split test point
+//        this.point = 459; //split test point
         this.point = 458; //test point
 //            this.point = 337; // lviv test point
-//        this.point = 1003; //test point java 8
+//        this.point = 20002; //test point java 8
 
 //            this.service = 4468;  ///test uah olways success  
 //            this.service = 4409;  /// gpc test service  
@@ -64,22 +65,23 @@ public class DataTransferObject {
 //             this.service = 5589; //familnyi
 //             this.service = 5609; //familnyi + bank
 //             this.service = 5652; //ding_test
-//             this.service = 5653; //// yanMon + split
+//             this.service = 5653; ////                yanMon + split
 //              this.service = 4471; /// ibox  
 //              this.service = 5630; //// tassibox
 //              this.service = 5657; //xPayout
 //              this.service = 5658;  ///electroPay
-//                this.service = 4479;
 //             this.service = 5659;  ///terminals
 //             this.service = 5660;  ///biton
 //            this.service = 5661;  ///zkTerm
 //          this.service = 5662;  ///fcSystem
 //            this.service = 5663;  ///codashop
-//            this.service = 5664;  ///fimi
+            this.service = 5664;  ///fimi + B2
 //            this.service = 4786;  ///lviv test service
 //            this.service = 5690;  ///lviv energy
-                this.service = 5691;  ///monobank  ///hermes
-              
+//                this.service = 5691;  ///monobank  ///hermes  paystree  b2API  triolan  psRegister vodafon easyPay
+//                this.service = 5630; /// tasKomIbox
+
+//  this.service = 334;
         
         this.account = account;
         this.checkNumber = checkNumber;

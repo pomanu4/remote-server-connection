@@ -40,7 +40,8 @@ public class XmlDocumentBuilder {
             case CANCEL:
                 return getBytesFromXmlDocument(createCancelXml(dto));
             case ONLINE_ADVANCE:
-                return getBytesFromXmlDocument(createOnlineAdvace(dto, "agentInputs"));
+//                return getBytesFromXmlDocument(createOnlineAdvace(dto, "topUpDeposit"));
+                return getBytesFromXmlDocument(createOnlineAdvace(dto, "getcardaccounts"));
 //                 String payh = "D:\\garbage\\familnyAdvanced.txt";
 //                 byte[] b;
 //        try {
@@ -173,8 +174,8 @@ public class XmlDocumentBuilder {
         
         
         verify.appendChild(addOne);
-        verify.appendChild(addTwo);
-        verify.appendChild(addThree);
+//        verify.appendChild(addTwo);
+//        verify.appendChild(addThree);
 //        verify.appendChild(addFour);
 //        verify.appendChild(addFive);
 //        verify.appendChild(addSix);
@@ -220,20 +221,20 @@ public class XmlDocumentBuilder {
         
         
         Element addOne = document.createElement("attribute");///
-        addOne.setAttribute("name", "wallet_useraccount");
-        addOne.setAttribute("value", "431414******5391");
+        addOne.setAttribute("name", "phone");
+        addOne.setAttribute("value", "");
         
         Element addTwo = document.createElement("attribute");///
-        addTwo.setAttribute("name", "email");
-        addTwo.setAttribute("value", "test@test.com");
+        addTwo.setAttribute("name", "documentType");
+        addTwo.setAttribute("value", "qwerty");
         
         Element addThree = document.createElement("attribute");
-        addThree.setAttribute("name", "phone");
-        addThree.setAttribute("value", "380673334488");
+        addThree.setAttribute("name", "documentSeries");
+        addThree.setAttribute("value", "cc");
         
         Element addFour = document.createElement("attribute");///
-        addFour.setAttribute("name", "proxy_txn_id");
-        addFour.setAttribute("value", "777");
+        addFour.setAttribute("name", "documentNumber");
+        addFour.setAttribute("value", "12344");
         
         Element addFive = document.createElement("attribute");///
         addFive.setAttribute("name", "banKCode");
