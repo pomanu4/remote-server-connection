@@ -74,8 +74,8 @@ public class XmlDocumentBuilder {
         
         
         Element addOne = document.createElement("attribute");///
-        addOne.setAttribute("name", "documentType");
-        addOne.setAttribute("value", "passport");
+        addOne.setAttribute("name", "last4digits");
+        addOne.setAttribute("value", "0074");
         
         Element addTwo = document.createElement("attribute");///
         addTwo.setAttribute("name", "documentSeries");

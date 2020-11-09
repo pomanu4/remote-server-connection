@@ -39,8 +39,8 @@ public class KeyBytesSupplier {
     private static final String PRIVATE_PEM = "458_private.pem";
     
     // split
-//    private static final String PUBLIC = "433_public.pem";
-//    private static final String PRIVATE_PEM = "433_private.pem";
+//    private static final String PUBLIC = "459_public.pem";
+//    private static final String PRIVATE_PEM = "459_private.pem";
     
 //    private static final String PUBLIC = "337_public.pem";
 //    private static final String PRIVATE_PEM = "337_private.pem";
@@ -54,8 +54,8 @@ public class KeyBytesSupplier {
     
     
     /// prod point keys
-//    private static final String PUBLIC = "public-274.pem";
-//    private static final String PRIVATE_PEM = "private-274.pem";
+//    private static final String PUBLIC = "public_20002.pem";
+//    private static final String PRIVATE_PEM = "private_20002.pem";
 
     public byte[] getPublicKeyBytes() throws UnsupportedEncodingException {
         ClassPathResource resource = new ClassPathResource(FILE_PATH + PUBLIC);
