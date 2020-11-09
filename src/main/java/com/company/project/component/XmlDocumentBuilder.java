@@ -417,7 +417,7 @@ public class XmlDocumentBuilder {
         advance.appendChild(att1);
         advance.appendChild(att2);
         advance.appendChild(att3);
-//        advance.appendChild(att4);
+        advance.appendChild(att4);
 //        advance.appendChild(att5);
 //        advance.appendChild(att6);
 //        advance.appendChild(att7);
