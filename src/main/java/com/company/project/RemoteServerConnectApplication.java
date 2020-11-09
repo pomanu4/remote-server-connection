@@ -34,34 +34,34 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
          int cancelId = 195;
          
          
-//         String account =  "4999999999990029";  /// bankSouth
-//         String account =  "3632952"; // terminals   4999999999990011
-//        String account =  "8801333";  ///// pmV3  8801333
-        String account =  "4242424242424242";//// 4242424242424242  4444333322221111
+//         String account =  "4111111111111111";  /// royalpay
+//         String account =  "5645374650"; // terminals   4999999999990011
+//        String account =  "380778884422";  ///// pmV3  8801333
+        String account =  "4242424242424242";//// 4242424242424242  4444333322221111    4653694300000074   +380972177332
 //        String account =  "48733387397";
-//            String account =  "25700120202056919"; ///yman
+//            String account =  "493"; ///yman
 //            String account =  "4012001037141112";
 //            String account =  "4444034440001290";  //// 5351 1803 0112 6706   5412 7103 0003 5305
-//            String account =  "1400104156";  //// lviv gaz company  1400104156
+//            String account =  "493";  //// lviv gaz company  1400104156
 //        String account =  "Z399231902050";  /// hermes  Z399231902050
-//            String account =  "Z399231902050";        /// 4561261212345464
+//            String account =  "Z399231902050";        /// 0671111113  0671111111   
 
         
-        int id = 26684;
+        int id = 26887;
         
         int sum = random.nextInt(401)+100;
       
-        DataTransferObject dto = new DataTransferObject(id, account, 1400, 100, 240);
+        DataTransferObject dto = new DataTransferObject(id, account, 1400, sum, 240);
         
-        sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
+//        sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
 //	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
 //	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
 //      sender.sendHttpRequestWithSignature(dto, RequestType.CANCEL);
-//        sender.sendHttpRequestWithSignature(dto, RequestType.ONLINE_ADVANCE);
+        sender.sendHttpRequestWithSignature(dto, RequestType.ONLINE_ADVANCE);
 //        sender.sendHttpRequestWithSignature(dto, RequestType.BALANCE);
-//        sender.sendHttpRequest(dto, "equaring", id); //// 230 merch
-
-        
+//        sender.sendHttpRequest(dto, "equaring", id); 
+//            sender.sendHttpRequest(dto, "meny", id); 
+       
         /*
         for (int i = 0; i < 5; i++) {
             id = id + 1;
