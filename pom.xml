@@ -156,6 +156,48 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            
+           <!--  <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					- Run shade goal on package phase -
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								- add Main-Class to manifest file -
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass></mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> --> 
+
+			<!-- assembly plugin for creation jar with dependencies comand:clean compile 
+				assembly:single <plugin> <artifactId>maven-assembly-plugin</artifactId> <configuration> 
+				<archive> <manifest> <mainClass>${fully.qualified.main.class}</mainClass> 
+				</manifest> </archive> <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> 
+				</descriptorRefs> <appendAssemblyId>false</appendAssemblyId> </configuration> 
+				<executions> <execution> <id>make-assembly</id> <!-#bind to the packaging 
+				phase -> <phase>package</phase> <goals> <goal>single</goal> </goals> </execution> 
+				</executions> <!-#mvn clean compile assembly:single -> </plugin> -->
+
+			<!-- add external jar to project <plugin> <groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-install-plugin</artifactId> <version>${version.maven-install-plugin}</version> 
+				<executions> <execution> <id>id.1</id> <phase>clean</phase> <configuration> 
+				<repositoryLayout>default</repositoryLayout> <groupId>processing.gates</groupId> 
+				<artifactId>GatesNew</artifactId> <version>1.0.0</version> <file>${project.basedir}/extLib/GatesDevelopment.jar</file> 
+				<packaging>jar</packaging> <generatePom>true</generatePom> </configuration> 
+				<goals> <goal>install-file</goal> </goals> </execution> </executions> </plugin> -->
+            
         </plugins>
     </build>
 
