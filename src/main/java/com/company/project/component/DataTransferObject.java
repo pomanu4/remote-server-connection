@@ -32,7 +32,10 @@ public class DataTransferObject {
 //            this.point = 337; // lviv test point
 //        this.point = 20002; //test point java 8
 
-//            this.service = 4468;  ///test uah olways success  
+//            this.service = 4468;  ///test uah olways success
+            this.service = 5709; /// test allways fail 4242424242424242 acount to pass online verify
+            
+            
 //            this.service = 4409;  /// gpc test service  
 //        this.service = 5610; //bankSouth
 //        this.service = 5591; //pinbankKyiv
@@ -56,7 +59,8 @@ public class DataTransferObject {
 //        this.service = 5651; ////  swiftGarant-ps
 //        this.service = 5647; ////  ukrGazBank
 //        this.service = 5692;  ///parimatch v3
-//        this.service = 5612;  /// test paylogic2
+//        this.service = 5612;  /// test paylogic2 - success
+//        this.service = 5696;  /// test paylogic2 - fail min sum 10
 //         this.service = 4459;  /// test kyivstar
 //          this.service = 5593;
 //        this.service = 5650;  /// test doublePay
@@ -75,11 +79,13 @@ public class DataTransferObject {
 //            this.service = 5661;  ///zkTerm
 //          this.service = 5662;  ///fcSystem
 //            this.service = 5663;  ///codashop
-            this.service = 5664;  ///fimi + B2
+//            this.service = 5664;  ///fimi + B2
 //            this.service = 4786;  ///lviv test service
 //            this.service = 5690;  ///lviv energy
 //                this.service = 5691;  ///monobank  ///hermes  paystree  b2API  triolan  psRegister vodafon easyPay
 //                this.service = 5630; /// tasKomIbox
+//                 this.service = 5697;  // 472   Test Voucher Provider  сум ін != сум пров
+
 
 //  this.service = 334;
         

@@ -40,8 +40,8 @@ public class XmlDocumentBuilder {
             case CANCEL:
                 return getBytesFromXmlDocument(createCancelXml(dto));
             case ONLINE_ADVANCE:
-//                return getBytesFromXmlDocument(createOnlineAdvace(dto, "topUpDeposit"));
-                return getBytesFromXmlDocument(createOnlineAdvace(dto, "getcardaccounts"));
+                return getBytesFromXmlDocument(createOnlineAdvace(dto, "getWalletToken"));///topUpDeposit   getWalletToken
+//                return getBytesFromXmlDocument(createOnlineAdvace(dto, "getcardaccounts"));
 //                 String payh = "D:\\garbage\\familnyAdvanced.txt";
 //                 byte[] b;
 //        try {
@@ -225,12 +225,12 @@ public class XmlDocumentBuilder {
         addOne.setAttribute("value", "");
         
         Element addTwo = document.createElement("attribute");///
-        addTwo.setAttribute("name", "documentType");
-        addTwo.setAttribute("value", "qwerty");
+        addTwo.setAttribute("name", "leo-ps-terminalid");
+        addTwo.setAttribute("value", "888");
         
         Element addThree = document.createElement("attribute");
-        addThree.setAttribute("name", "documentSeries");
-        addThree.setAttribute("value", "cc");
+        addThree.setAttribute("name", "company_id");
+        addThree.setAttribute("value", "999");
         
         Element addFour = document.createElement("attribute");///
         addFour.setAttribute("name", "documentNumber");
@@ -298,8 +298,8 @@ public class XmlDocumentBuilder {
         
         
         payment.appendChild(addOne);
-//        payment.appendChild(addTwo);
-//        payment.appendChild(addThree);
+        payment.appendChild(addTwo);
+        payment.appendChild(addThree);
 //        payment.appendChild(addFour);
 //        payment.appendChild(addFive);
 //        payment.appendChild(addSix);
@@ -374,20 +374,20 @@ public class XmlDocumentBuilder {
         advance.setAttribute("function", function);
         
         Element att1 = document.createElement("attribute");
-        att1.setAttribute("name", "merchant");
+        att1.setAttribute("name", "clientWalletAccountID");
         att1.setAttribute("value", "000000020000001");
         
         Element att2 = document.createElement("attribute");
         att2.setAttribute("name", "id1");
-        att2.setAttribute("value", "m.zinin@iboxbank.online");
+        att2.setAttribute("value", "xxx@iboxbank.online");
         
         Element att3 = document.createElement("attribute");
         att3.setAttribute("name", "sum");
         att3.setAttribute("value", String.valueOf(dto.getSumm() / 100.00));
                
         Element att4 = document.createElement("attribute");
-        att4.setAttribute("name", "number");
-        att4.setAttribute("value", "777888");
+        att4.setAttribute("name", "merchant");
+        att4.setAttribute("value", "IE0037");
         
         Element att5 = document.createElement("attribute");
         att5.setAttribute("name", "TPPstreetType");
@@ -416,8 +416,11 @@ public class XmlDocumentBuilder {
         
         advance.appendChild(att1);
         advance.appendChild(att2);
+
         advance.appendChild(att3);
         advance.appendChild(att4);
+
+
 //        advance.appendChild(att5);
 //        advance.appendChild(att6);
 //        advance.appendChild(att7);

@@ -52,7 +52,7 @@ public class HttpRequestSender {
     
     
 //        private static String BASE_URL = "https://10.0.100.104/external/extended"; /// GPC java 8
-//    private static String BASE_URL = "https://test8.api4pay.com/external/extended"; /// test java 8
+//    private static String BASE_URL = "https://test8.api4pay.com:8443/api"; /// test java 8  https://test8.api4pay.com:8443/api  https://test8.api4pay.com:8443/external/extended
 //    private static String BASE_URL = "https://api.lgaming.net/external/extended";
 //    private static String BASE_URL = "https://95.211.12.99:61443/server/";
     private static String BASE_URL = "https://test.api4pay.com/external/extended";
@@ -115,15 +115,16 @@ public class HttpRequestSender {
 
         RestTemplate restTemplate = HttpRequestSender.DEFAULT_REST_TEMPLATE;
         String document = "";
-//        String key = "a88220c3241b850901ae080504571d5d01bc60e6";/// 228-56406a817075201942b6e57e2520805bdbecd419  230-a88220c3241b850901ae080504571d5d01bc60e6
-        String key = "56406a817075201942b6e57e2520805bdbecd419";
+//        String key = "a88220c3241b850901ae080504571d5d01bc60e6";///  230-a88220c3241b850901ae080504571d5d01bc60e6
+        String key = "56406a817075201942b6e57e2520805bdbecd419";   /// 228-56406a817075201942b6e57e2520805bdbecd419 
+        
 if("meny".equals(type)){
             document = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request point=\"458\"><menu/></request>";
         } else if("equaring".equals(type)){
-//            String mess = "{\"account\":\"test@test.com\",\"amount\":10.55,\"currency\":\"UAH\",\"projectid\":95369,\"email\":\"test@test.com\",\"methodid\":\"testks\",\"requestid\":26482628,\"requestmethod\":\"create_order\",\"client_url\":\"https://google.com\",\"attributes_number\":\"0687927871\",\"merchantid\":228}";          
-//String mess = "{\"account\":\"test@test.com\",\"amount\":10,\"client_url\":\"https://google.com\",\"currency\":\"UAH\",\"email\":\"test@test.com\",\"merchantid\":230,\"methodid\":\"visamctest\",\"projectid\": 95384,\"requestid\":65535,\"requestmethod\":\"create_order\"}";
-  String mess = "{\"account\":\"test_account\",\"amount\":100,\"client_url\":\"http://localhost:8080/\",\"currency\":\"UAH\",\"email\":\"test@localhost\",\"merchantid\":228,\"methodid\":\"visamctest\",\"projectid\":95369,\"requestid\":1602162833,\"requestmethod\":\"create_order\"}";
-//String mess = "{\"account\":\"test_account\",\"amount\":100,\"client_url\":\"http://localhost:8080/\",\"currency\":\"UAH\",\"email\":\"test@localhost\",\"merchantid\":228,\"methodid\":\"monotest\",\"projectid\":95369,\"requestid\":1602162833,\"requestmethod\":\"create_order\"}";
+//            String mess = "{\"account\":\"test@test.com\",\"amount\":10.55,\"currency\":\"UAH\",\"projectid\":95369,\"email\":\"test@test.com\",\"methodid\":\"testks\",\"requestid\":26482628,\"requestmethod\":\"create_order\",\"client_url\":\"https://google.com\",\"attributes_number\":\"0978887777\",\"merchantid\":228}";          
+//String mess = "{\"account\":\"test@test.com\",\"amount\":\"10\",\"client_url\":\"https://google.com\",\"currency\":\"UAH\",\"email\":\"test@test.com\",\"merchantid\":230,\"methodid\":\"visamctest\",\"projectid\": 95384,\"requestid\":65535,\"requestmethod\":\"create_order\"}";
+  String mess = "{\"account\":\"L-test\",\"amount\":\"9.00\",\"client_url\":\"http://localhost:8080/\",\"currency\":\"UAH\",\"email\":\"test@localhost\",\"merchantid\":228,\"methodid\":\"visamctest\",\"projectid\":95369,\"requestid\":1602162833,\"requestmethod\":\"create_order\"}";
+//String mess = "{\"account\":\"test_account\",\"amount\":9.95,\"client_url\":\"http://localhost:8080/\",\"currency\":\"UAH\",\"email\":\"test@localhost\",\"merchantid\":228,\"methodid\":\"monotest\",\"projectid\":95369,\"requestid\":1602162833,\"requestmethod\":\"create_order\"}";
 
 
 /// favorit protocol test          
@@ -139,7 +140,7 @@ if("meny".equals(type)){
             Arrays.stream(toArray).forEach((s) -> builder.append(json.get(s)));
             builder.append(key);
             System.out.println(builder.toString());
-            String generateHash = generateHash(builder.toString(), "MD5"); /// or SHA1
+            String generateHash = generateHash(builder.toString(), "SHA1"); /// or SHA1
             json.put("sign", generateHash);
             
             String toString = json.toString();

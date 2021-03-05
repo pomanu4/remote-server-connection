@@ -43,12 +43,12 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
 //            String account =  "493"; ///yman
 //            String account =  "4012001037141112";
 //            String account =  "4444034440001290";  //// 5351 1803 0112 6706   5412 7103 0003 5305
-//            String account =  "493";  //// lviv gaz company  1400104156
+//            String account =  "11620467";  //// lviv gaz company  1400104156  roualTerm 7115428-fail / 11620467 -success
 //        String account =  "Z399231902050";  /// hermes  Z399231902050
 //            String account =  "Z399231902050";        /// 0671111113  0671111111   
 
         
-        int id = 26887;
+        int id = 27003; ///   26845   26900
         
         int sum = random.nextInt(401)+100;
       
@@ -58,9 +58,9 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
 //	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
 //	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
 //      sender.sendHttpRequestWithSignature(dto, RequestType.CANCEL);
-        sender.sendHttpRequestWithSignature(dto, RequestType.ONLINE_ADVANCE);
+//        sender.sendHttpRequestWithSignature(dto, RequestType.ONLINE_ADVANCE);
 //        sender.sendHttpRequestWithSignature(dto, RequestType.BALANCE);
-//        sender.sendHttpRequest(dto, "equaring", id); 
+        sender.sendHttpRequest(dto, "equaring", id); 
 //            sender.sendHttpRequest(dto, "meny", id); 
        
         /*
