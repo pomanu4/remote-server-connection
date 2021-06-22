@@ -15,9 +15,16 @@ import java.security.cert.CertificateException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.PEMReader;
+import org.bouncycastle.openssl.PEMDecryptorProvider;
+import org.bouncycastle.openssl.PEMEncryptedKeyPair;
+import org.bouncycastle.openssl.PEMKeyPair;
+import org.bouncycastle.openssl.PEMParser;
+//import org.bouncycastle.openssl.PEMReader;
 import org.bouncycastle.openssl.PasswordFinder;
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
@@ -87,49 +94,103 @@ public class KeyBytesSupplier {
         return result.getBytes(CHARSET);
     }
     
-    public PrivateKey getPrivateKeyFromPEMfile() {
+    public PublicKey getPublicKeyFromFile(String password){
         Security.addProvider(new BouncyCastleProvider());
-        ClassPathResource resource = new ClassPathResource(FILE_PATH + PRIVATE_PEM);
-        final String privateKeyPassword = null;
+        ClassPathResource resource = new ClassPathResource(FILE_PATH + PUBLIC);
+        final String privateKeyPassword = password;
+        PublicKey pubK = null;
         PasswordFinder finder = () -> {
-                if (privateKeyPassword != null) {
-                    return privateKeyPassword.toCharArray();
-                } else {
-                    return new char[0];
-                }
-            };
-        try(PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), finder);) {
-            PrivateKey privateK = null;
-            KeyPair pair = (KeyPair) reader.readObject();
-            privateK = pair.getPrivate();
-            return privateK;   
-        } catch (IOException ex) {
-            Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+            if (privateKeyPassword != null) {
+                return privateKeyPassword.toCharArray();
+            } else {
+                return new char[0];
+            }
+        };
+        
+        try(PEMParser parser = new PEMParser(new InputStreamReader(resource.getInputStream()))){
+            JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
+            Object keyObj = parser.readObject();
+            pubK = converter.getPublicKey(SubjectPublicKeyInfo.getInstance(keyObj));
+        }catch (Exception e) {
+        	 Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, e);
+		}
+        return pubK;
     }
     
-    public PublicKey getPublicKeyFromPrivate(){
-        Security.addProvider(new BouncyCastleProvider());
+//    public PrivateKey getPrivateKeyFromPEMfile() {
+//        Security.addProvider(new BouncyCastleProvider());
+//        ClassPathResource resource = new ClassPathResource(FILE_PATH + PRIVATE_PEM);
+//        final String privateKeyPassword = null;
+//        PasswordFinder finder = () -> {
+//                if (privateKeyPassword != null) {
+//                    return privateKeyPassword.toCharArray();
+//                } else {
+//                    return new char[0];
+//                }
+//            };
+//        try(PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), finder);) {
+//            PrivateKey privateK = null;
+//            KeyPair pair = (KeyPair) reader.readObject();
+//            privateK = pair.getPrivate();
+//            return privateK;   
+//        } catch (IOException ex) {
+//            Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
+//            return null;
+//        }
+//    }
+    
+    public PrivateKey getPrivateKeyFromPEMfileNEW(String password) {
+    	Security.addProvider(new BouncyCastleProvider());
         ClassPathResource resource = new ClassPathResource(FILE_PATH + PRIVATE_PEM);
-        final String privateKeyPassword = null;
+        final String privateKeyPassword = password;
+        PrivateKey privK = null;
         PasswordFinder finder = () -> {
-                if (privateKeyPassword != null) {
-                    return privateKeyPassword.toCharArray();
-                } else {
-                    return new char[0];
-                }
-            };
-        try(PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), finder);) {
-            PublicKey publicKey = null;
-            KeyPair pair = (KeyPair) reader.readObject();
-            publicKey = pair.getPublic();
-            return publicKey;   
-        } catch (IOException ex) {
-            Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+            if (privateKeyPassword != null) {
+                return privateKeyPassword.toCharArray();
+            } else {
+                return new char[0];
+            }
+        };
+        
+        try(PEMParser parser = new PEMParser(new InputStreamReader(resource.getInputStream()))){
+            JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
+            PEMDecryptorProvider decryptor = new JcePEMDecryptorProviderBuilder().build(finder.getPassword());
+            Object keyObj = parser.readObject();
+            if (keyObj instanceof PEMKeyPair) {
+                KeyPair pair = converter.getKeyPair((PEMKeyPair) keyObj);
+                privK = pair.getPrivate();
+            } else if (keyObj instanceof PEMEncryptedKeyPair) {
+                KeyPair keyPairEnc = converter.getKeyPair(((PEMEncryptedKeyPair) keyObj).decryptKeyPair(decryptor));
+                privK = keyPairEnc.getPrivate();
+            }
+            
+        }catch (Exception e) {
+        	 Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, e);
+		}
+        return privK;
     }
+    
+//    public PublicKey getPublicKeyFromPrivate(){
+//        Security.addProvider(new BouncyCastleProvider());
+//        ClassPathResource resource = new ClassPathResource(FILE_PATH + PRIVATE_PEM);
+//        final String privateKeyPassword = null;
+//        PasswordFinder finder = () -> {
+//                if (privateKeyPassword != null) {
+//                    return privateKeyPassword.toCharArray();
+//                } else {
+//                    return new char[0];
+//                }
+//            };
+//        try(PEMReader reader = new PEMReader(new InputStreamReader(resource.getInputStream()), finder);) {
+//            PublicKey publicKey = null;
+//            KeyPair pair = (KeyPair) reader.readObject();
+//            publicKey = pair.getPublic();
+//            return publicKey;   
+//        } catch (IOException ex) {
+//            Logger.getLogger(XmlSignatureUtill.class.getName()).log(Level.SEVERE, null, ex);
+//            return null;
+//        }
+//    }
     
     public KeyStore getKeyStore() throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
         ClassPathResource certResource = new ClassPathResource(CERT_PATH + CERTIFICATE);

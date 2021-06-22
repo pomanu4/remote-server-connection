@@ -54,13 +54,13 @@ public class RemoteServerConnectApplication implements CommandLineRunner {
       
         DataTransferObject dto = new DataTransferObject(id, account, 1400, sum, 240);
         
-//        sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
+        sender.sendHttpRequestWithSignature(dto, RequestType.VERIFY);
 //	sender.sendHttpRequestWithSignature(dto, RequestType.PAYMENT);
 //	sender.sendHttpRequestWithSignature(dto, RequestType.STATUS);
 //      sender.sendHttpRequestWithSignature(dto, RequestType.CANCEL);
 //        sender.sendHttpRequestWithSignature(dto, RequestType.ONLINE_ADVANCE);
 //        sender.sendHttpRequestWithSignature(dto, RequestType.BALANCE);
-        sender.sendHttpRequest(dto, "equaring", id); 
+//        sender.sendHttpRequest(dto, "equaring", id); 
 //            sender.sendHttpRequest(dto, "meny", id); 
        
         /*

@@ -29,7 +29,8 @@ public class XmlSignatureUtill {
         try {
             Signature sign = Signature.getInstance(SIGN_ALGORYTHM);
 
-            sign.initVerify(getPublicKey());
+//            sign.initVerify(getPublicKey());
+            sign.initVerify(keySupplier.getPublicKeyFromFile(null));
             sign.update(message.getBytes(CHARSET));
             return sign.verify(Base64.decode(signature.getBytes(CHARSET)));
         } catch (Exception ex) {
@@ -40,7 +41,8 @@ public class XmlSignatureUtill {
     public String sign(byte[] message) throws SignatureException {
         try {
             Signature sign = Signature.getInstance(SIGN_ALGORYTHM);
-            sign.initSign(keySupplier.getPrivateKeyFromPEMfile());
+//            sign.initSign(keySupplier.getPrivateKeyFromPEMfile());
+            sign.initSign(keySupplier.getPrivateKeyFromPEMfileNEW(null));
             sign.update(message);
 // sign.update(message.getBytes("win));
             return java.util.Base64.getEncoder().encodeToString(sign.sign());

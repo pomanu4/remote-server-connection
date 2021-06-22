@@ -32,8 +32,8 @@ public class DataTransferObject {
 //            this.point = 337; // lviv test point
 //        this.point = 20002; //test point java 8
 
-//            this.service = 4468;  ///test uah olways success
-            this.service = 5709; /// test allways fail 4242424242424242 acount to pass online verify
+            this.service = 4468;  ///test uah olways success
+//            this.service = 5709; /// test allways fail 4242424242424242 acount to pass online verify
             
             
 //            this.service = 4409;  /// gpc test service  

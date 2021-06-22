@@ -80,17 +80,6 @@
             <artifactId>spring-web</artifactId>
         </dependency>
                 
-        
-       <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on 
-<dependency>
-    <groupId>org.bouncycastle</groupId>
-    <artifactId>bcprov-jdk15on</artifactId>
-    <version>1.59</version>
-</dependency>-->
-
-
-
-        
         <dependency>
             <groupId>org.apache.directory.studio</groupId>
             <artifactId>org.apache.commons.io</artifactId>
@@ -118,12 +107,27 @@
             <scope>test</scope>
         </dependency>
         
-        <dependency>
+         <!--   <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-ext-jdk16</artifactId>
             <version>1.46</version>
             <type>jar</type>
-        </dependency>
+        </dependency>-->
+        
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcprov-jdk15on</artifactId>
+    <version>1.68</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcpkix-jdk15on</artifactId>
+    <version>1.68</version>
+</dependency>
+
         
         
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore 
